@@ -1,3 +1,4 @@
+#This is code for the quadratic equation
 a=int(input('Enter coefficient A: ')) 
 b=int(input('Enter coefficient B: '))
 c=int(input('Enter coefficient C: '))
@@ -8,4 +9,5 @@ x2=(-b-r)/(2*a)
 
 print('Your first X value is: ', x1)
 print('Your second X value is: ', x2)
-print('testing')
+print('Testing')
+
