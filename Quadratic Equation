@@ -1,5 +1,6 @@
 #This is code for the quadratic equation
-#Practice using Git
+#Practice using git
+#Edit, adding and Pushing
 a=int(input('Enter coefficient A: ')) 
 b=int(input('Enter coefficient B: '))
 c=int(input('Enter coefficient C: '))
