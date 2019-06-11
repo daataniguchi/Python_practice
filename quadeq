@@ -1,0 +1,15 @@
+#This is code for the quadratic equation
+#Practice using git
+#Edit, adding and Pushing
+a=int(input('Enter coefficient A: ')) 
+b=int(input('Enter coefficient B: '))
+c=int(input('Enter coefficient C: '))
+
+r=((b*b)-(4*a*c))**0.5
+x1=(-b+r)/(2*a)
+x2=(-b-r)/(2*a)
+
+print('Your first X value is: ', x1)
+print('Your second X value is: ', x2)
+print('Testing')
+print('Sara was here')
