@@ -136,7 +136,7 @@ time.sleep(5)
 #   else:
 #       status = "Not Connected"
 #
-#   print status
+#   print(status)
 
 
 if status == "Connected":
