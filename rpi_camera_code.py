@@ -97,10 +97,10 @@ def send():
     who = check_output("who",shell=True)
     who = who.split('(')[1]
     ip = who.split(')')[0]
-#   print ip
+#   print(ip)
     scp = "sudo sshpass -p 'ramboat' scp /home/pi/Documents/minion_pics/%s.jpg jack@%s:/home/jack/minion_pics/" % (pictime, ip)
     os.system(scp) 
-#   print scp
+#   print(scp)
 
 
 if __name__ == '__main__':
