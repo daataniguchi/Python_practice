@@ -115,7 +115,7 @@ if __name__ == '__main__':
                 status = "Not Connected"
 
 
-#camera = PiCamera()
+camera = PiCamera()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(light, GPIO.OUT)
 GPIO.setup(wifi, GPIO.OUT)
