@@ -1,1 +1,2 @@
-print ("blue")
+print ("blue, is life")
+
