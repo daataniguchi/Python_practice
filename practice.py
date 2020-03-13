@@ -1,1 +1,1 @@
-a = cat
+hello! i am your ruler
