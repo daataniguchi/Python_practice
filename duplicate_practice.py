@@ -1,5 +1,5 @@
 a = [1,2,2,3,4,4,5,6,17]
-b = [1,2,2,3,4,5,6,6,7,10,11]
+b = [1,2,2,3,4,5,6,6,7]
 
 import collections
 print([item for item, count in collections.Counter(a).items()])
