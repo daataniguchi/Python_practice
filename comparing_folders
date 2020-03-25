@@ -1,0 +1,10 @@
+import os
+
+folder_1 = os.listdir('/Users/andreagonzalez/Desktop/practf1')
+folder_2 = os.listdir('/Users/andreagonzalez/Desktop/practf2')
+
+if folder_1 == folder_2:
+    print("folders contain the same images")
+elif folder_1 != folder_2:
+    print("folders do not contain the same images")
+    
