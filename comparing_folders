@@ -1,6 +1,6 @@
 import os
 
-folder_1 = os.listdir('/Users/andreagonzalez/Desktop/practf1')
+folder_1 = os.listdir('/Users/andreagonzalez/Desktop/practf1') #directory will be different accoding to computer
 folder_2 = os.listdir('/Users/andreagonzalez/Desktop/practf2')
 
 if folder_1 == folder_2:
