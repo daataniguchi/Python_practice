@@ -1,10 +1,16 @@
+
 import os
+path_1 = '/Users/andreagonzalez/Desktop/practf1' # change path when using code
+path_2 = '/Users/andreagonzalez/Desktop/practf2'
 
-folder_1 = os.listdir('/Users/andreagonzalez/Desktop/practf1') #directory will be different accoding to computer
-folder_2 = os.listdir('/Users/andreagonzalez/Desktop/practf2')
 
-if folder_1 == folder_2:
+a = os.listdir(path_1)
+b = os.listdir(path_2)
+if a == b:
     print("folders contain the same images")
-elif folder_1 != folder_2:
+elif a != b:
     print("folders do not contain the same images")
-    
+
+
+c = [x for x in a if x in b]
+print(c)
