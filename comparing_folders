@@ -11,6 +11,8 @@ if a == b:
 elif a != b:
     print("folders do not contain the same images")
 
-
-c = [x for x in a if x in b]
+c = [x for x in a if x not in b]
 print(c)
+
+d = [x for x in a if x in b]
+print(d)
