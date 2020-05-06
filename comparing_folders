@@ -1,8 +1,10 @@
-
 import os
-path_1 = '/Users/andreagonzalez/Desktop/practf1' # change path when using code
-path_2 = '/Users/andreagonzalez/Desktop/practf2'
+import shutil
 
+path_1 = '/Users/andreagonzalez/Desktop/master/practf1' #change path when using code
+path_2 = '/Users/andreagonzalez/Desktop/master/practf2'
+path_3 = '/Users/andreagonzalez/Desktop/master/nondups1'#will be used to change images that don't have duplicates into new folder
+path_4 = '/Users/andreagonzalez/Desktop/master/nondups2'#
 
 a = os.listdir(path_1)
 b = os.listdir(path_2)
@@ -11,8 +13,12 @@ if a == b:
 elif a != b:
     print("folders do not contain the same images")
 
-c = [x for x in a if x not in b]
+c = [x for x in a if x not in b] #I think this is only the ones that are in one folder
 print(c)
 
 d = [x for x in a if x in b]
-print(d)
+#print(d)
+
+source = '/Users/andreagonzalez/Desktop/master/practf1'
+destination = '/Users/andreagonzalez/Desktop/master/nondups1'
+shutil.move(source, destination,c)
