@@ -6,9 +6,10 @@ Type "help", "copyright", "credits" or "license()" for more information.
     full_path = [x for x in os.walk(root_dir)]
     full_path_2 = [x for x in os.walk(root_dir_2)]
 
+    print(os.walk(root_dir_2))
+
     imgs_temp = [os.path.join(ds, f) for ds, _, fs in full_path for f in fs if f]
     imgs_temp_2 = [os.path.join(ds, f) for ds, _, fs in full_path_2 for f in fs if f]
-
 
     length_l_poly_guest_1 = [x for x in imgs_temp if x.__contains__('Lingulodinium_polyedra_guest1')]
     length_l_poly_guest_3 = [x for x in imgs_temp_2 if x.__contains__('Lingulodinium_polyedra_guest3')]
@@ -28,6 +29,14 @@ Type "help", "copyright", "credits" or "license()" for more information.
     print("The length of questionable is " + str(len(length_questionable_guest_1 + length_questionable_guest_3)))
 
     ##categories: Include l_poly, ciliates, other, and questionable
+
+    category_names_guest_1 = [i.rstrip('.DS_Store') for i in os.listdir(root_dir)]
+
+    print(category_names_guest_1)
+
+    category_names_guest_3 = [i.rstrip('.DS_Store') for i in os.listdir(root_dir_2)]
+
+    print(category_names_guest_3)
 
     l_poly = [length_l_poly_guest_1 + length_l_poly_guest_3]
 
