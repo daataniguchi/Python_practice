@@ -1,0 +1,316 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf610
+{\fonttbl\f0\froman\fcharset0 TimesNewRomanPSMT;\f1\fnil\fcharset0 LucidaGrande-Bold;\f2\fnil\fcharset0 LucidaGrande;
+}
+{\colortbl;\red255\green255\blue255;\red251\green2\blue7;\red0\green0\blue255;\red43\green71\blue20;
+\red0\green0\blue0;\red127\green0\blue128;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c14913\c0;\csgenericrgb\c0\c0\c100000;\cssrgb\c21795\c34243\c10019;
+\cssrgb\c0\c0\c0;\cssrgb\c57919\c12801\c57269;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid202\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid203\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li2160\lin2160 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid204\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li2880\lin2880 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid205\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li3600\lin3600 }{\listname ;}\listid3}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}}
+\margl1440\margr1440\vieww17240\viewh15540\viewkind0
+\deftab720
+\pard\pardeftab720\ri0\qc\partightenfactor0
+
+\f0\fs24 \cf0 Git tutorial\
+\pard\pardeftab720\ri0\partightenfactor0
+\cf0 \
+\pard\pardeftab720\ri0\partightenfactor0
+
+\b \cf0 Overview\
+git
+\b0  is a version control tool. It will keep track of different versions of files 
+\i without
+\i0  you having to save each version as a separate file on your computer. You can always access and change a document back to a previous version if you need to do so. 
+\b Github
+\b0  is a website on the Internet where you can also store these versions of files. Saving the information on the Internet has the benefit that your files can be easily shared with the world, and also, if something should happen to your computer, your work won\'92t be lost because it is saved on the Internet. In this tutorial, you will learn the most basic commands for use in git and github.\
+\
+
+\b Before you start\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	\uc0\u8226 	}
+\b0 Make sure you have python installed on your computer and that you are comfortable accessing it (via such software as TextEdit on a Mac, Notepad on a PC, or other programs such as Visual Studio Code, Python IDE, Sypder, Pycharm, Vim, Nano, Atom etc.)\
+{\listtext	\uc0\u8226 	}Make sure you have a github account \
+{\listtext	\uc0\u8226 	}Make sure you have access to a github repository (repo). The one we will be using is 
+\b \cf2 Python_practice,
+\b0  \cf0 which is a repo belonging to Dr. Taniguchi and is found at {\field{\*\fldinst{HYPERLINK "https://github.com/daataniguchi/Python_practice"}}{\fldrslt \cf3 \ul \ulc3 https://github.com/daataniguchi/Python_practice}}. If Dr. Taniguchi has not made you a collaborator on that repo, please contact her.\
+{\listtext	\uc0\u8226 	}Make sure you have git on your computer. If you are using a PC, you may have to download a program to access github; I recommend {\field{\*\fldinst{HYPERLINK "https://confluence.atlassian.com/bitbucket/clone-a-repository-223217891.html"}}{\fldrslt \cf3 \ul \ulc3 git tourtoise}}\cf3 \ul \ulc3 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls1\ilvl0\cf0 \ulnone {\listtext	\uc0\u8226 	}Make sure you are comfortable with directory structures (e.g., you know what /User/taniguchi/Documents/Research would mean)\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	\uc0\u8226 	}
+\b NOTE: these directions were created on a Mac. I\'92ve tried to include directions for a PC and Linux machine, but they have not been checked. Use those directions with caution or note that things may not work exactly as written\
+\pard\pardeftab720\ri0\partightenfactor0
+
+\b0 \cf0 \
+\pard\pardeftab720\ri0\partightenfactor0
+
+\b \cf0 Tutorial\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls2\ilvl0
+\b0 \cf0 {\listtext	\uc0\u8226 	}Clone the Python_practice to your computer by following {\field{\*\fldinst{HYPERLINK "https://confluence.atlassian.com/bitbucket/clone-a-repository-223217891.html"}}{\fldrslt \cf3 \ul these instructions}}\
+{\listtext	\uc0\u8226 	}Open up a 
+\b new file
+\b0  using whatever software you want (via such software as TextEdit on a Mac, Notepad on a PC, or other programs such as Visual Studio Code, Python IDE, Sypder, Pycharm, Vim, Nano, Atom etc.) I will use 
+\b TextEdit
+\b0  in this tutorial. Notepad would be the equivalent on a PC. \
+{\listtext	\uc0\u8226 	}In that new file, type in the following, making sure you have the correct formatting: \
+\pard\pardeftab720\li360\fi-360\ri0\partightenfactor0
+\ls2\ilvl0\cf0 		\cf4 print(\'93Hello World\'94)\cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls3\ilvl0\cf0 {\listtext	\uc0\u8226 	}Save that file  \cf2 with the format your Initials_tutorial.py 
+\b in the Python_practice repository you cloned
+\b0 .\cf0  For example, I would save \cf2 DT_tutorial.py \cf5 in the Python_practice folder I cloned from GitHub\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls3\ilvl0
+\i\b \cf0 {\listtext	\uc0\u8226 	}
+\i0 Pull
+\b0  to update you directory from GitHub\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1
+\i\b \cf0 {\listtext	
+\f1\i0 \uc0\u8259 
+\f0\i 	}
+\i0 For a Mac or Linux machine
+\b0 \
+\pard\tx1660\tx2160\tx2880\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Open 
+\b Terminal
+\b0 \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}Navigate to the directory (folder) where you cloned the git repo. \
+\pard\tx2380\tx2880\tx3600\pardeftab720\li2880\fi-2880\ri0\partightenfactor0
+\ls3\ilvl3\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}For example, if I saved the git repo Python_practice in the directory on my Desktop on my Mac, I would type into Terminal\
+\pard\tx3100\tx3600\pardeftab720\li3600\fi-3600\ri0\partightenfactor0
+\ls3\ilvl4\cf0 		\cf6 cd Desktop/Python_practice\cf0 \
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}
+\b For a PC
+\b0 :\
+\pard\tx1660\tx2160\tx2880\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Open 
+\b git tortoise
+\b0 \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}Navigate to the directory (folder) where you cloned the git repo\
+\pard\tx940\tx1440\tx2160\tx2880\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1
+\i\b \cf0 {\listtext	
+\f1\i0 \uc0\u8259 
+\f0\i 	}
+\i0\b0 For any operating system, type in\
+\pard\tx1660\tx2160\tx2880\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2
+\i\b \cf0 		
+\i0\b0 \cf6 git pull\
+\pard\tx940\tx1440\tx2160\tx2880\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1
+\i\b \cf0 {\listtext	
+\f1\i0 \uc0\u8259 
+\f0\i 	}
+\i0\b0 Then press ENTER\
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}That function will update the your computer with the information on the Internet in the repo Python_practice
+\i\b \
+\pard\tx220\tx720\tx1440\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls3\ilvl0
+\i0\b0 \cf0 {\listtext	\uc0\u8226 	}
+\b Add and commit 
+\b0 your new document to git\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}
+\b For a Mac or Linux machine
+\b0 \
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Open 
+\b Terminal
+\b0 \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}Navigate to the directory (folder) where you cloned the git repo. \
+\pard\tx2380\tx2880\pardeftab720\li2880\fi-2880\ri0\partightenfactor0
+\ls3\ilvl3\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}For example, if I saved the git repo Python_practice in the directory on my Desktop on my Mac, I would type into Terminal\
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}cd Desktop/Python_practice\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}
+\b For a PC
+\b0 :\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Open 
+\b git tortoise
+\b0 \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}Navigate to the directory (folder) where you cloned the git repo\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}For any type of machine:\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Type in (\cf2 using the name of your file in place of DT_tutorial.py of course\cf0 )\
+		\cf6 git add DT_tutorial.py\cf0 \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}Press ENTER\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}To commit this change, you will be using the command git commit -m, where the -m part means message. You should type in a short (no more than ~10-15 words) of what it is that you are saving. Here is an example\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Type in\
+\pard\tx2380\tx2880\pardeftab720\li2880\fi-2880\ri0\partightenfactor0
+\ls3\ilvl3\cf0 	\cf6 git commit -m \'93The first commit for this tutorial for DT\'94\cf0 \
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Again, the part in quotes can be whatever you want, but keep it short\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}This commit means that this version of the file is now saved on your computer\
+\pard\tx220\tx720\tx1440\tx2160\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls3\ilvl0\cf0 {\listtext	\uc0\u8226 	}
+\b Push
+\b0  your file to GitHub\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}In Terminal (if on a Mac or Linux machine) or in git tortoise (if on a PC), type in\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 		\cf6 git push \cf0 \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}The press ENTER\
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}This command will push your commit from your personal computer to GitHub on the Internet\
+\pard\tx220\tx720\tx1440\tx2160\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls3\ilvl0\cf0 {\listtext	\uc0\u8226 	}Make a second change to the same .py file that you have been working on\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}In my case DT_tutorial.py, add in a new line to it by typing in\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 		\cf4 print(\'93Second print statement\'94)\cf0 \
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}
+\b Save
+\b0  this change to your .py file\
+\pard\tx220\tx720\tx1440\tx2160\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls3\ilvl0\cf0 {\listtext	\uc0\u8226 	}Add and commit this changed document to your .py file by doing the same as you did before in the 
+\b Add and commit
+\b0  instructions\
+{\listtext	\uc0\u8226 	}Pull the Python_practie repo as you did before in the 
+\b Pull
+\i  
+\i0\b0 instructions above\
+{\listtext	\uc0\u8226 	}
+\b Push
+\b0  your change to the Python_practice repo as you did before using eat 
+\b Push
+\b0  instructions above\
+{\listtext	\uc0\u8226 	}Make a third change to the same .py file that you have been working on\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Add in the following line \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}\cf4 print(\'93Third print statement\'94)\cf0 \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}Save your .py file\
+\pard\tx220\tx720\tx1440\tx2160\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls3\ilvl0\cf0 {\listtext	\uc0\u8226 	}
+\b Add and commit 
+\b0 this change\
+{\listtext	\uc0\u8226 	}
+\b Push
+\b0  this change to GitHub\
+{\listtext	\uc0\u8226 	}
+\b Revert
+\b0  your last commit\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Let\'92s say we don\'92t like having three print statements, so we will revert by typing into Terminal or git tortoise\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 		\cf6 git revert --no-commit HEAD\cf0 \
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Look at your .py file now\'97it should look like\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf4 		print(\'93Hello World\'94)\
+		print(\'93Second print statement\'94)\
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}Notice that you don\'92t have that third statement; make sure this is what you have \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}To complete the revert, type into Terminal or gittortoise\
+		\cf6 git revert --continue\cf0 \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}Your screen will now ask you to type in a message\
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}you have to press the 
+\b \cf6 ESCAPE
+\b0 \cf0  button and the \cf6 I \cf0 button,\
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	} then type in whatever you want without a # symbol in front of it; \
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}there will already be something there like \
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ri0\partightenfactor0
+\ls3\ilvl2\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}\cf4 This reverts commit 33aa2acff578d3b6dc001b672e919452n70c7d31. \cf0 \
+\pard\tx940\tx1440\tx2160\pardeftab720\li1440\fi-1440\ri0\partightenfactor0
+\ls3\ilvl1\cf0 {\listtext	
+\f2 \uc0\u8259 
+\f0 	}You can keep that if you want\
+{\listtext	
+\f2 \uc0\u8259 
+\f0 	}When done, press \cf6 ESCAPE :wq ENTER\cf0 \
+\pard\tx220\tx720\tx1440\tx2160\pardeftab720\li720\fi-720\ri0\partightenfactor0
+\ls3\ilvl0\cf0 {\listtext	\uc0\u8226 	}
+\b Push
+\b0  this change to Github\
+{\listtext	\uc0\u8226 	}You should now see this revert reflected on GitHub with that last print statement removed\
+\pard\pardeftab720\ri0\partightenfactor0
+\cf0 \
+}
