@@ -60,6 +60,8 @@ def cp_same_dif_files(source1, source2, destination_same, destination_dif,file_t
 
 
 # Specify directories want to compare and where want files to end up   
+# Note the structure of this list path_groups. This structure is chosen so it can
+# be inptu into a for loop at the end of this script
 path_groups = [['/Users/dtaniguchi/Desktop/Test_images/Ciliate1/',#folder_1 for comparison
                 '/Users/dtaniguchi/Desktop/Test_images/Ciliate2/',#folder_2 for comparison
                 '/Users/dtaniguchi/Desktop/Test_images/Ciliate_Final/',#destination for files that are the same
@@ -72,6 +74,6 @@ path_groups = [['/Users/dtaniguchi/Desktop/Test_images/Ciliate1/',#folder_1 for 
 # Specify file types want to look at actually move around
 file_types = ['jpg']
 
-# Run function
+# Run function in a for loop (hence the structure of the list path_groups above)
 for paths in path_groups:
     cp_same_dif_files(paths[0],paths[1],paths[2],paths[3],file_types)
