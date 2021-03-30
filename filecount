@@ -1,0 +1,33 @@
+#Required to transfer a dictionary with list textfile from string to dict
+import ast
+#imported as a string
+text = open("classification_names.txt", "r")
+#reads text to grab the whole file
+data = text.read() 
+#prints to test if we go the file
+#print(data)
+text.close()
+#reconstructs the data into a dictionary
+d = ast.literal_eval(data)
+count = 0
+for x in enumerate(d.items()):
+    if isinstance(x[1][1], list):
+        count += len(x[1][1])
+print(count)
+print("The number of elements in lists: ", count)
+
+
+#Loops to print the number in each category
+#to modify, just change the values in d.get('YOUR_TEXT_HERE')
+cilCount = 0
+polyCount = 0
+otherCount = 0
+for x in d.get('Ciliate'):
+    cilCount += 1
+for x in d.get('L_Poly'):
+    polyCount += 1
+for x in d.get('Other'):
+    otherCount += 1
+print("Cilates: " ,cilCount,"\n"
+      "L_Poly: " , polyCount,"\n"
+      "Other: " , otherCount,"\n")
