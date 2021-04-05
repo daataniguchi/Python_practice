@@ -1,0 +1,12 @@
+import os
+
+
+correct_list = os.listdir("/Users/andreagonzalez/Desktop/trailcode/correct")
+number_files_correct=len(correct_list)
+
+
+incorrect_list = os.listdir("/Users/andreagonzalez/Desktop/trailcode/incorrect")
+number_files_incorrect = len(incorrect_list)
+
+print (number_files_correct)
+print (number_files_incorrect)
