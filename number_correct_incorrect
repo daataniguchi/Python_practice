@@ -10,3 +10,37 @@ number_files_incorrect = len(incorrect_list)
 
 print (number_files_correct)
 print (number_files_incorrect)
+
+
+
+
+from sympy import symbols, Eq, solve
+import os
+true_positive = os.listdir("/Users/anissagarcia/Desktop/flower_practice/true_positive")
+tp = len(correct_list)
+false_positive = os.listdir("/Users/anissagarcia/Desktop/flower_practice/false_positive")
+fp = len(incorrect_list)
+m = (tp + fp) #m is the total number of files in fp and tp
+fdr = (fp/m) #fdr is the false discovery rate target
+
+dir_0 = os.listdir("/Users/anissagarcia/Desktop/flower_practice/sunflowers")
+class_0 = len(dir_0) #ciliatep0 
+dir_1 = os.listdir("/Users/anissagarcia/Desktop/flower_practice/lily")
+class_1 = len(dir_1) #lpolyp0
+dir_2 = os.listdir("/Users/anissagarcia/Desktop/flower_practice/birds_of_paradise")
+class_2 = len(dir_2) #otherp0
+
+q0 = (class_0 * (1-fdr))
+q1 = (class_1 * (1-fdr))
+q2 = (class_2 * (1-fdr))
+
+print ('True Positive:', tp)
+print ('False Positive:', fp)
+print ('Total:',m)
+print ('len_class_0:', class_0)
+print ('len_class_1:', class_1)
+print ('len_class_2:', class_2)
+print ('fdr:', fdr)
+print ('q0_class_0:', q0)
+print ('q1_class_1:', q1)
+print ('q2_class_2:', q2)
