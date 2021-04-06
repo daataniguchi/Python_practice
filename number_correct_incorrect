@@ -1,16 +1,3 @@
-import os
-
-
-correct_list = os.listdir("/Users/andreagonzalez/Desktop/trailcode/correct")
-number_files_correct=len(correct_list)
-
-
-incorrect_list = os.listdir("/Users/andreagonzalez/Desktop/trailcode/incorrect")
-number_files_incorrect = len(incorrect_list)
-
-print (number_files_correct)
-print (number_files_incorrect)
-
 
 
 
@@ -30,6 +17,7 @@ class_1 = len(dir_1) #lpolyp0
 dir_2 = os.listdir("/Users/anissagarcia/Desktop/flower_practice/birds_of_paradise")
 class_2 = len(dir_2) #otherp0
 
+#is this from the text file? figure out what qo is 
 q0 = (class_0 * (1-fdr))
 q1 = (class_1 * (1-fdr))
 q2 = (class_2 * (1-fdr))
