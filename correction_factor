@@ -1,0 +1,54 @@
+import os
+import ast
+from sympy import symbols, Eq, solve
+
+
+true_positive = os.listdir ("/Users/andreagonzalez/Desktop/trailcode/true_positive")
+tp = len(true_positive)
+false_positive = os.listdir("/Users/andreagonzalez/Desktop/trailcode/false_positive")
+fp = len(false_positive)
+m = (tp + fp) #m is the total number of files in fp and tp
+fdr = (fp/m) #fdr is the false discovery rate target
+
+#is this from the text file
+import ast
+text = open("classification_names.txt", "r")
+data = text.read()
+text.close()
+d = ast.literal_eval(data)
+count = 0
+for x in enumerate(d.items()):
+    if isinstance(x[1][1], list):
+        count += len(x[1][1])
+       
+
+#loops to print the number in each category
+cilCount = 0
+polyCount = 0
+otherCount = 0
+for x in d.get('Ciliate'):
+    cilCount += 1
+for x in d.get('L_Poly'):
+    polyCount += 1 
+for x in d.get('Other'):
+    otherCount += 1
+#print("Cilates: " ,cilCount,"\n"
+      #"L_Poly: " , polyCount,"\n"
+      #"Other: " , otherCount,"\n")
+
+q0_cil = (cilCount/count)
+q0_poly = (polyCount/count)
+q0_other = (otherCount/count)
+
+
+p0_Cil = (q0_cil * (1-fdr))
+p0_lpoly = (q0_poly * (1-fdr))
+p0_other = (q0_other * (1-fdr))
+
+
+print (p0_Cil)
+print(p0_lpoly)
+print(p0_other)
+
+
+
