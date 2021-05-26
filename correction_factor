@@ -1,18 +1,40 @@
-import os
-import ast
 from sympy import symbols, Eq, solve
+import os
+import ast 
+
+#fdr for ciliates
+true_positive_cil = os.listdir ("/Users/andreagonzalez/Desktop/True_pos/Cilcompare/True_positive")
+tp_ciliate = len(true_positive)
+false_positiv_cil = os.listdir("/Users/andreagonzalez/Desktop/True_pos/Cilcompare/False_positive")
+fp_cilate= len(false_positive)
+m_cil= (tp + fp) #m is the total number of files in fp and tp
+fdr_cil = (fp/m) #fdr is the false discovery rate target
 
 
-true_positive = os.listdir ("/Users/andreagonzalez/Desktop/trailcode/true_positive")
-tp = len(true_positive)
-false_positive = os.listdir("/Users/andreagonzalez/Desktop/trailcode/false_positive")
-fp = len(false_positive)
-m = (tp + fp) #m is the total number of files in fp and tp
-fdr = (fp/m) #fdr is the false discovery rate target
+#fdr for l_poly
+true_positive_lpoly = os.listdir ("/Users/andreagonzalez/Desktop/True_pos/Lpolycompare/True_positive")
+tp_lpoly = len(true_positive)
+false_positiv_lpoly = os.listdir("/Users/andreagonzalez/Desktop/True_pos/Lpolycompare/False_positive")
+fp_lpoly= len(false_positive)
+m_lpoly= (tp + fp) #m is the total number of files in fp and tp
+fdr_lpoly = (fp/m) #fdr is the false discovery rate target
 
-#is this from the text file
+
+
+#frd for other
+true_positive_other = os.listdir ("/Users/andreagonzalez/Desktop/True_pos/Other_compare/True_pos")
+tp_other = len(true_positive)
+false_positiv_other = os.listdir("/Users/andreagonzalez/Desktop/True_pos/Other_compare/false_pos")
+fp_other= len(false_positive)
+m_other= (tp + fp) #m is the total number of files in fp and tp
+fdr_other = (fp/m) #fdr is the false discovery rate target
+
+
+
+
+# this is from the text file 
 import ast
-text = open("classification_names.txt", "r")
+text = open('classification_file_names_02_07.txt', 'r')
 data = text.read()
 text.close()
 d = ast.literal_eval(data)
@@ -36,19 +58,16 @@ for x in d.get('Other'):
       #"L_Poly: " , polyCount,"\n"
       #"Other: " , otherCount,"\n")
 
-q0_cil = (cilCount/count)
-q0_poly = (polyCount/count)
-q0_other = (otherCount/count)
+p0_cil = (cilCount/count)
+p0_poly = (polyCount/count)
+p0_other = (otherCount/count)
 
 
-p0_Cil = (q0_cil * (1-fdr))
-p0_lpoly = (q0_poly * (1-fdr))
-p0_other = (q0_other * (1-fdr))
+q0_Cil = (p0_cil * (1-fdr))
+q0_lpoly = (p0_poly * (1-fdr))
+q0_other = (p0_other * (1-fdr))
 
 
-print (p0_Cil)
-print(p0_lpoly)
-print(p0_other)
-
-
-
+print (q0_Cil)
+print(q0_lpoly)
+print(q0_other)
