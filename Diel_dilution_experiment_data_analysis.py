@@ -1,6 +1,7 @@
 # Diel dilution experiment data analysis
 # Use this notebook to analyze diel dilution experiment data 
-# Author: Darcy Taniguchi, Alyssia Gonzalez
+# Author: Darcy Taniguchi, Alyssia Gonzalez, Sandra Morcos
+
 
 
 # Other information
