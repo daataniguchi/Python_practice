@@ -2,6 +2,7 @@
 # Use this notebook to analyze diel dilution experiment data 
 # Author: Darcy Taniguchi, Alyssia Gonzalez
 
+
 # Other information
 
 # Model 2 regression from https://github.com/OceanOptics/pylr2
@@ -108,7 +109,7 @@ def dil_frac_calc(df):
     #     dil_dict[jjj] = df_temp[0]
     return dil_dict
 
-    def k_calc (time, init_cell, fin_cell): #Calculates apparent growth rate k in units of time
+def k_calc (time, init_cell, fin_cell): #Calculates apparent growth rate k in units of time
     # time is amount of time incubation was run, typically in units of days
     #init_cell is initial cell concentration, units of cells per volume
     # fin_call is final cell concentration, units of cells per volume
@@ -116,7 +117,7 @@ def dil_frac_calc(df):
     return k
 
 
-    def k_calc_from_rep(x,r1,r2,t1,t2,inc_time):
+def k_calc_from_rep(x,r1,r2,t1,t2,inc_time):
     # This function calculates the apparent growth rate for Prochlorococcus, Synechococcus, 
         #pico-eukaryotes, heterotrophic bacteria, all photosynthetic cells (i.e., everything except het. bac)
         # and all cells combined
