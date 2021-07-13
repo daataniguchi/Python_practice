@@ -110,6 +110,7 @@ def dil_frac_calc(df):
     #     dil_dict[jjj] = df_temp[0]
     return dil_dict
 
+###use this function to find growth rate (3 rates, day, night, 24hr) use time in days
 def k_calc (time, init_cell, fin_cell): #Calculates apparent growth rate k in units of time
     # time is amount of time incubation was run, typically in units of days
     #init_cell is initial cell concentration, units of cells per volume
@@ -117,7 +118,7 @@ def k_calc (time, init_cell, fin_cell): #Calculates apparent growth rate k in un
     k = (1/time) * (np.log(fin_cell/init_cell))
     return k
 
-
+###this is dealing with replicate experiments (below)
 def k_calc_from_rep(x,r1,r2,t1,t2,inc_time):
     # This function calculates the apparent growth rate for Prochlorococcus, Synechococcus, 
         #pico-eukaryotes, heterotrophic bacteria, all photosynthetic cells (i.e., everything except het. bac)
@@ -459,29 +460,72 @@ def paired_t_with_key(data, key):
 # data_timept0 is something like {'pro_per_mL':20000, 'syn_per_mL':40000, 'Nutrients_1'=0,'Time_point'=0}
 
 ######### Expt. 1 #############
-data = pd.read_excel('/Users/dtaniguchi/Documents/Siph_food_web_cruise/Flow_cytometry/Working_file_data_ALL_POPS_ALL_DAYS.xlsx', sheet_name = 'Expt_1')
-df = pd.DataFrame(data,columns=['WELL_ID','RUN_DATE','NOTES','Sample_No','pro_per_mL','syn_per_mL',\
-                                'peuk_per_mL','hbact_per_mL',\
-                                'pro_Norm_FSC','pro_Norm_SSC','pro_Norm_CHL','pro_Norm_DNA',\
-                               'syn_Norm_FSC','syn_Norm_SSC','syn_Norm_CHL','syn_Norm_DNA',\
-                               'peuk_Norm_FSC','peuk_Norm_SSC','peuk_Norm_CHL','peuk_Norm_DNA',\
-                               'hbact_Norm_FSC','hbact_Norm_SSC','hbact_Norm_DNA',\
-                               'Fraction_whole_seawater','Nutrients_1','Time_point','Bottle_number','Replicate'])
+data = pd.read_excel(r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice\Chl_SIO_pier_forcode.xlsx', sheet_name = 'working_data')
 
-expt_num = 1 #experiment number corresponding to data read in
+df = pd.DataFrame(data,columns=['Bottle','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_point','Expt_Num',\
+                                'Sample_num','Depth_m',\
+                                'Vol_Filtered','First_Blank','F0_RFU','F0_Secound_Run_RFU',\
+                               'Fa_RFU','Fa_Second_Run_RFU','End_Blank','Volume_Acetone_ml',\
+                               'Chlorophyll_ug/L','Phaeopigments_ug/L'])
+import ast
+data_dict = ast.literal_eval(df)
+
+print(data_dict)
+
+#from collections import defaultdict
+#import os
+#d = defaultdict(list)
+
+
+
+
+#list = df.values.tolist()
+#print(d)
+
+#for i in df_list:
+  #  for j in range(int(i), int(i) +2 ):
+ #       data_dict[j].append(i)
+
+#print(df_list)
+#data_dict=dic()
+#print(data_dict)
+
+#expt1=
+#expt1['Bottle']= 'Fraction_Whole_SW' 'Nut_0_No_Nut_1' 'Replicate' 'Time_point''Expt_Num' 'Chlorophyll_ug/L'
+
+
+
+
+#print(expt1)
+
+
+#,'peuk_Norm_DNA',\
+#                              'hbact_Norm_FSC','hbact_Norm_SSC','hbact_Norm_DNA',\
+#                             'Fraction_whole_seawater','Nutrients_1','Time_point','Bottle_number','Replicate'])
+
+expt_Num = 1 #experiment number corresponding to data read in
 
 # Putting data into dictionary
-col_names=['Sample_No','pro_per_mL','syn_per_mL',\
-                                'peuk_per_mL','hbact_per_mL',\
+col_names=['Bottle','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_point','Expt_Num',\
+                                'Sample_num','Depth_m',\
+                                'Vol_Filtered','First_Blank','F0_RFU','F0_Secound_Run_RFU',\
+                               'Fa_RFU','Fa_Second_Run_RFU','End_Blank','Volume_Acetone_ml',\
+                               'Chlorophyll_ug/L','Phaeopigments_ug/L']
+
+
+    #'Sample_No','pro_per_mL','syn_per_mL',\
+                             #   'peuk_per_mL','hbact_per_mL',\
 #                                 'pro_Norm_FSC','pro_Norm_SSC','pro_Norm_CHL','pro_Norm_DNA',\
 #                                'syn_Norm_FSC','syn_Norm_SSC','syn_Norm_CHL','syn_Norm_DNA',\
 #                                'peuk_Norm_FSC','peuk_Norm_SSC','peuk_Norm_CHL','peuk_Norm_DNA',\
 #                                'hbact_Norm_FSC','hbact_Norm_SSC','hbact_Norm_DNA',\
-                               'Fraction_whole_seawater','Nutrients_1','Time_point',\
+                               #'Fraction_whole_seawater','Nutrients_1','Time_point',\
 #                                'Bottle_number',\
-                               'Replicate']
+                              # 'Replicate']
 
-data_dict = data_in_dict(df, col_names)
+#data_dict = defaultdict(df_list, col_names)
+#print(data_dict)
+
 
 # Replicates to compare for 24 hour, 12-day, and 12-hour night rates
 # 24-hour rates
