@@ -463,12 +463,23 @@ def paired_t_with_key(data, key):
 
 ###Beginning of Alyssia's work###
 
+col_names = ['Bottle','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_point','Expt_Num',\
+                                'Sample_num','Depth_m',\
+                                'Vol_Filtered','First_Blank','F0_RFU','F0_Secound_Run_RFU',\
+                               'Fa_RFU','Fa_Second_Run_RFU','End_Blank','Volume_Acetone_ml',\
+                               'Chlorophyll_ug/L','Phaeopigments_ug/L']
+
 data = pd.read_excel(r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice\Chl_SIO_pier_forcode.xlsx', sheet_name = 'working_data')
 
-df = pd.DataFrame(data,columns=['col_names'])
+df = pd.DataFrame(data)
+#, columns=[col_names])  ###stuck on this very close, the data isnt showing up but print(data) is working. Format looks good.
+###question: why does it need to be in a dataframe
+
+#print(data)
+print(df)
 
 
-#for loop to obtain all the avg chlorophyll values, (needs more debugging)
+###for loop to obtain all the avg chlorophyll values, (needs more debugging)
 
 #Unique list of experimennts
 expt = [1, 2, 'NA']
@@ -494,6 +505,10 @@ for e in expt:
 
 print(chl_ave)
 
+# Putting data into dictionary
+data_dict = data_in_dict(df, col_names)
+print(data_dict)
+
 ###Random ideas below###
 #import ast
 #data_dict = ast.literal_eval(df)
@@ -518,17 +533,6 @@ print(chl_ave)
 ###End of Random ideas###
 
 expt_Num = 1 #experiment number corresponding to data read in
-
-# Putting data into dictionary
-col_names=['Bottle','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_point','Expt_Num',\
-                                'Sample_num','Depth_m',\
-                                'Vol_Filtered','First_Blank','F0_RFU','F0_Secound_Run_RFU',\
-                               'Fa_RFU','Fa_Second_Run_RFU','End_Blank','Volume_Acetone_ml',\
-                               'Chlorophyll_ug/L','Phaeopigments_ug/L']
-
-
-data_dict = data_in_dict(df_list, col_names)
-print(data_dict)
 
 ###End of Alyssia's Work###
 
