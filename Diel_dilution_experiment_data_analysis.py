@@ -463,32 +463,34 @@ def paired_t_with_key(data, key):
 
 ###Beginning of Alyssia's work###
 
+
+data = pd.read_excel(r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice\Chl_SIO_pier_forcode.xlsx', sheet_name = 'working_data')
+
 col_names = ['Bottle','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_point','Expt_Num',\
                                 'Sample_num','Depth_m',\
                                 'Vol_Filtered','First_Blank','F0_RFU','F0_Secound_Run_RFU',\
                                'Fa_RFU','Fa_Second_Run_RFU','End_Blank','Volume_Acetone_ml',\
-                               'Chlorophyll_ug/L','Phaeopigments_ug/L']
-
-data = pd.read_excel(r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice\Chl_SIO_pier_forcode.xlsx', sheet_name = 'working_data')
+                               'Chlorophyll_ug/L','Phaeopigments_ug/L']# add 'Chl_averages'
 
 df = pd.DataFrame(data)
-#, columns=[col_names])  ###stuck on this very close, the data isnt showing up but print(data) is working. Format looks good.
-###question: why does it need to be in a dataframe
+#df = pd.DataFrame(data, columns=[col_names]) this is how it was orginally, but it would not read in the data correctly, all values were Nan, but the format was correct
 
 #print(data)
-print(df)
+#print(df)
 
+# Putting data into dictionary
+#data_dict = data_in_dict(df, col_names) #add chl_ave
+#print(data_dict) ###Doesnt print
 
 ###for loop to obtain all the avg chlorophyll values, (needs more debugging)
 
+#With in data_dict
 #Unique list of experimennts
 expt = [1, 2, 'NA']
 #Unique list of time points
 time_pt = ['t0', 't1', 't2']
 #Unique list of bottle numbers
-bottle_num = ['NA', '1A', '1B', '2A', '2B']
-#3A, '3B', '1D', '3D']
-#, 4A, 4B, 5A, 5B, 6A, 6B, 7A, 8A, 9A, 10A, 11A, 12A, 7B, 8B, 9B, 4D, 10B, 11B, 12B, 2D]
+bottle_num = ['NA', '1A', '1B', '2A', '2B', '3A', '3B', '1D', '3D', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '4D', '10B', '11B', '12B', '2D']
 #Unique list of replicates
 rep = [1, 2, 3, 4]
 
@@ -499,15 +501,13 @@ for e in expt:
             temp = []
             for r in rep:
                 if 'myVar' in locals(): (df(replicate = r, bottle_num = b, expt= e, time_pt = t)) ###Sandra if you could research if exists and also the 'then' there are syntax errors
-                #then
-                temp.append(df(replicate = r, bottle_num = b, expt = e, time_pt = t))
+                temp.append(df(replicate = r, bottle_num = b, expt = e, time_pt = t)) ###TypeError: dataframe object is not callable, possible fix var1 = credit-card.var()
                 chl_ave = ave(temp)
 
-print(chl_ave)
+print(temp)
 
-# Putting data into dictionary
-data_dict = data_in_dict(df, col_names)
-print(data_dict)
+
+
 
 ###Random ideas below###
 #import ast
