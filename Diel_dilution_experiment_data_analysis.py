@@ -475,16 +475,14 @@ col_names = ['Bottle','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_poi
 df = pd.DataFrame(data)
 #df = pd.DataFrame(data, columns=[col_names]) this is how it was orginally, but it would not read in the data correctly, all values were Nan, but the format was correct
 
-#print(data)
-#print(df)
-
 # Putting data into dictionary
-#data_dict = data_in_dict(df, col_names) #add chl_ave
-#print(data_dict) ###Doesnt print
+### <———— LOOK HERE DR. T, data_dict wont print anything out instead I get this error 'dataframe' object has no attribute 'sample_No' attributerror, line 5274
+data_dict = data_in_dict(df, col_names) #Also LOOK HERE, Dr. T...I am assuming you will want us to add chl_ave to this dictionary, is that correct? If so I will move this line below the average chlorophyll for loop
+print(data_dict)
 
 ###for loop to obtain all the avg chlorophyll values, (needs more debugging)
 
-#With in data_dict
+#With in df
 #Unique list of experimennts
 expt = [1, 2, 'NA']
 #Unique list of time points
@@ -500,41 +498,30 @@ for e in expt:
         for b in bottle_num:
             temp = []
             for r in rep:
-                if 'myVar' in locals(): (df(replicate = r, bottle_num = b, expt= e, time_pt = t)) ###Sandra if you could research if exists and also the 'then' there are syntax errors
-                temp.append(df(replicate = r, bottle_num = b, expt = e, time_pt = t)) ###TypeError: dataframe object is not callable, possible fix var1 = credit-card.var()
-                chl_ave = ave(temp)
+                if 'Chlorophyll_ug/L' in locals(): temp.append(df(Replicate = r, Bottle_num = b, Time_pt = t, Expt_num= e))
+               # temp.append[df(replicate = r, bottle_num = b, expt = e, time_pt = t)], not needed to run (as I understand it now)
+            chl_ave = statistics.mean(temp) ### <———— LOOK HERE DR. T, says there is no data points to average
 
-print(temp)
-
-
+print(chl_ave)
 
 
-###Random ideas below###
-#import ast
-#data_dict = ast.literal_eval(df)
-#print(data_dict)
-#from collections import defaultdict
-#import os
-#d = defaultdict(list)
-###make a dictionary within a dictionary
-#data_list = df.values.tolist()
-#print(d)
-#for i in df_list:
-  #  for j in range(int(i), int(i) +2 ):
- #       data_dict[j].append(i)
-#print(df_list)
-#data_dict=dic()
-#print(data_dict)
-#expt1=
-#expt1['Bottle']= 'Fraction_Whole_SW' 'Nut_0_No_Nut_1' 'Replicate' 'Time_point''Expt_Num' 'Chlorophyll_ug/L'
-#print(expt1)
-#,'peuk_Norm_DNA',\
+# calc the dilution fraction Function psuedo code
 
-###End of Random ideas###
+# read in data for calc diltuion fraction , unincubated bottles
+#data_dil_frc = pd.read_excel(r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice\Chl_SIO_pier_forcode.xlsx', sheet_name = '21 & 22 June')
+
+#df_dil_frc = pd.DataFrame(data_dil_frc)
+
+#Colu_names= []
+
+#for loop similar to chl_ave for loop
+
+###End of Alyssia's Work###
+
 
 expt_Num = 1 #experiment number corresponding to data read in
 
-###End of Alyssia's Work###
+
 
 # Replicates to compare for 24 hour, 12-day, and 12-hour night rates
 # 24-hour rates
