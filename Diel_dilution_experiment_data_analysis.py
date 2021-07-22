@@ -461,7 +461,8 @@ def paired_t_with_key(data, key):
 # data_timept0 is something like {'pro_per_mL':20000, 'syn_per_mL':40000, 'Nutrients_1'=0,'Time_point'=0}
 
 ######### Expt. 1 #############
-directory_to_use = '/Users/dtaniguchi/Research/Python_practice' #r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice\
+directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice'
+#/Users/dtaniguchi/Research/Python_practice
 excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx' 
 sheet_to_use = 'working_data'
 
@@ -487,20 +488,43 @@ print(data_dict)
 
 #With in df
 #Unique list of experimennts
-expt = [1, 2, 'NA']
+expt = [1, 2]
 #Unique list of time points
-time_pt = ['t0', 't1', 't2']
+time_pt = [0]#, 1, 2]
 #Unique list of bottle numbers
 
-bottle_num =list(set(df.Bottle_number))# ['NaN', '1A', '1B', '2A', '2B', '3A', '3B', '1D', '3D', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '4D', '10B', '11B', '12B', '2D']
+bottle_num =['carboy']#list(set(df.Bottle_number))# ['NaN', '1A', '1B', '2A', '2B', '3A', '3B', '1D', '3D', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '4D', '10B', '11B', '12B', '2D']
 #Unique list of replicates
 rep = [1, 2, 3, 4]
 
 #for loop
 for key, v in data_dict.items(): # going through list in outer dictionary
-    
-    for d1 in l:
-        if d1['Replicate'] == r1 and d1['Time_point'] == t1:
+   
+    for d in v:
+        temp_chl = []
+        temp_phaeo =[]
+        for e in expt:
+            #print('expt =' ,e)
+            for t in time_pt:
+                 
+                print('time_pt=' ,t)
+                for b in bottle_num:
+                    
+              #      print('bottle_num=', b)
+                    if d['Expt_num'] == e and d['Time_point'] == t and d['Bottle_number'] == b:
+                        
+                        temp_chl.append(d['Chlorophyll_ug/L'])
+                        temp_phaeo.append(d['Phaeopigments_ug/L'])
+                        
+                        print(temp_chl)
+                        print(temp_phaeo)                                
+                chl_ave= statistics.mean(temp_chl)
+                phaeo_ave= statistics.mean(temp_phaeo)
+                print(chl_ave)
+                print(phaeo_ave)
+  #   for d1 in l:
+
+  #      if d1['Replicate'] == r1 and d1['Time_point'] == t1:
 
 for e in expt:
     for t in time_pt:
