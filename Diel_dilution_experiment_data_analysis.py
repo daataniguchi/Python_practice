@@ -57,7 +57,8 @@ def data_in_dict(df, col_names):
             temp2 = temp.values.tolist()
             dict_temp[c] = temp2[0]
 
-        dict_temp['Expt_num'] = expt_num# Adding in experiment number to dictionary
+
+        #dict_temp['Expt_num'] = expt_num# Adding in experiment number to dictionary
 
         bot_num_temp = data_temp.Bottle_number
         bot_num = bot_num_temp.to_string(index=False)
@@ -460,23 +461,25 @@ def paired_t_with_key(data, key):
 # data_timept0 is something like {'pro_per_mL':20000, 'syn_per_mL':40000, 'Nutrients_1'=0,'Time_point'=0}
 
 ######### Expt. 1 #############
+directory_to_use = '/Users/dtaniguchi/Research/Python_practice' #r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice\
+excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx' 
+sheet_to_use = 'working_data'
 
+file_to_read = directory_to_use + '/' + excel_file_to_use 
 ###Beginning of Alyssia's work###
 
 
-data = pd.read_excel(r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice\Chl_SIO_pier_forcode.xlsx', sheet_name = 'working_data')
+data = pd.read_excel(file_to_read, sheet_name = sheet_to_use)
 
-col_names = ['Bottle','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_point','Expt_Num',\
-                                'Sample_num','Depth_m',\
-                                'Vol_Filtered','First_Blank','F0_RFU','F0_Secound_Run_RFU',\
+col_names = ['Bottle_number','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_point','Expt_num',\
+                                'Sample_No','Depth_m',\
+                                'Vol_Filtered','First_Blank','F0_RFU','F0_Second_Run_RFU',\
                                'Fa_RFU','Fa_Second_Run_RFU','End_Blank','Volume_Acetone_ml',\
                                'Chlorophyll_ug/L','Phaeopigments_ug/L']# add 'Chl_averages'
 
 df = pd.DataFrame(data)
-#df = pd.DataFrame(data, columns=[col_names]) this is how it was orginally, but it would not read in the data correctly, all values were Nan, but the format was correct
 
 # Putting data into dictionary
-### <———— LOOK HERE DR. T, data_dict wont print anything out instead I get this error 'dataframe' object has no attribute 'sample_No' attributerror, line 5274
 data_dict = data_in_dict(df, col_names) #Also LOOK HERE, Dr. T...I am assuming you will want us to add chl_ave to this dictionary, is that correct? If so I will move this line below the average chlorophyll for loop
 print(data_dict)
 
@@ -488,21 +491,28 @@ expt = [1, 2, 'NA']
 #Unique list of time points
 time_pt = ['t0', 't1', 't2']
 #Unique list of bottle numbers
-bottle_num = ['NA', '1A', '1B', '2A', '2B', '3A', '3B', '1D', '3D', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '4D', '10B', '11B', '12B', '2D']
+
+bottle_num =list(set(df.Bottle_number))# ['NaN', '1A', '1B', '2A', '2B', '3A', '3B', '1D', '3D', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '4D', '10B', '11B', '12B', '2D']
 #Unique list of replicates
 rep = [1, 2, 3, 4]
 
 #for loop
+for key, v in data_dict.items(): # going through list in outer dictionary
+    
+    for d1 in l:
+        if d1['Replicate'] == r1 and d1['Time_point'] == t1:
+
 for e in expt:
     for t in time_pt:
         for b in bottle_num:
             temp = []
             for r in rep:
-                if 'Chlorophyll_ug/L' in locals(): temp.append(df(Replicate = r, Bottle_num = b, Time_pt = t, Expt_num= e))
+                if 'Chlorophyll_ug/L' in locals(): 
+                    temp.append(df(Replicate = r, bottle_num = b, Time_pt = t, Expt_num= e))
                # temp.append[df(replicate = r, bottle_num = b, expt = e, time_pt = t)], not needed to run (as I understand it now)
-            chl_ave = statistics.mean(temp) ### <———— LOOK HERE DR. T, says there is no data points to average
+                    print(temp)
+#            chl_ave = statistics.mean(temp) ### <———— LOOK HERE DR. T, says there is no data points to average
 
-print(chl_ave)
 
 
 # calc the dilution fraction Function psuedo code
