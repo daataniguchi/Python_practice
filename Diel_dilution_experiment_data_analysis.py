@@ -464,6 +464,7 @@ def paired_t_with_key(data, key):
     return test_result
 
 ########Dilution Fraction Calculation##########
+# where the data is located
 directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #for PC put r'C:your\path'
 excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx'
 sheet_to_use_dil = 'Dilution_Fraction'
@@ -471,38 +472,38 @@ sheet_to_use_dil = 'Dilution_Fraction'
 
 file_to_read = directory_to_use + '/' + excel_file_to_use
 
+# read in the data 
 dil_frac_data = pd.read_excel(file_to_read, sheet_name = sheet_to_use_dil)
 
-
+# read the data in a dataframe
 dil_frac_df = pd.DataFrame(dil_frac_data)
 
+# locate the values in columns Chlorophyll_ug/L with disired dilutions 
+hundred_percent = dil_frac_df.query('Dilution==1')['Chlorophyll_ug/L']
+eighty_percent =dil_frac_df.query('Dilution==0.8')['Chlorophyll_ug/L']
+sixity_percent = dil_frac_df.query('Dilution==0.6')['Chlorophyll_ug/L']
+fortyfive_percent = dil_frac_df.query('Dilution==0.45')['Chlorophyll_ug/L']
+twenty_percent = dil_frac_df.query('Dilution==0.2')['Chlorophyll_ug/L']
 
-temp_hundred_percent = dil_frac_df.Dilution.eq(1) # <---HERE Dr. T, temp_hundred_percent comes out as true or false, thinking of doing something similar to what we did with averaging Chl
-if temp_hundred_percent a.all(true) :
-    hundred_percent = dil_frac_df.Chlorophyll_ug/L()
-    
-# eighty_percent = dil_frac_df.Dilution.eq(0.8)
-# fortyfive_percent = dil_frac_df.Dilution.eq(0.45)
-# sixity_percent = dil_frac_df.Dilution.eq(0.6)
-# twenty_percent = dil_frac_df.Dilution.eq(0.2)
-
-print(hundred_percent) #this comes out as a bool (i.e. true or flase) trying to work around it by using the if statment 
-
+# average chlorophyll per dilution 
 ave_hundred_percent = statistics.mean(hundred_percent)
-# ave_eighty_percent = statistics.mean(eighty_percent)
-# ave_fortyfive_percent =statistics.mean(fortyfive_percent)
-# ave_sixity_percent = statistics.mean(sixity_percent)
-# ace_twenty_percent = statistics.mean(twenty_percent)
+ave_eighty_percent = statistics.mean(eighty_percent)
+ave_sixity_percent = statistics.mean(sixity_percent)
+ave_fortyfive_percent =statistics.mean(fortyfive_percent)
+ave_twenty_percent = statistics.mean(twenty_percent)
 
-print(ave_hundred_percent)
-
+# find the dilution fraction 
 nominal_hundred = ave_hundred_percent/ave_hundred_percent 
-# nominal_eighty = ave_eighty_percent/ave_hundred_percent 
-# nominal_fortyfive = ave_fortyfive_percent/ave_hundred_percent 
-# nominal_sixity = ave_sixity_percent/ave_hundred_percent
-# nominal_twenty = ave_twenty_percent/ave_hundred_percent
+nominal_eighty = ave_eighty_percent/ave_hundred_percent 
+nominal_sixity = ave_sixity_percent/ave_hundred_percent
+nominal_fortyfive = ave_fortyfive_percent/ave_hundred_percent 
+nominal_twenty = ave_twenty_percent/ave_hundred_percent
 
-#dilution_fractions = [nominal_hundred, nominal_eighty, nominal_fortyfive, nominal_sixity, nominal_twenty]
+# put dilution fractions into a list 
+dilution_fractions = [nominal_hundred, nominal_eighty, nominal_fortyfive, nominal_sixity, nominal_twenty]
+
+print(dilution_fractions)
+
 
 ######################################################################
 ########## Experiment-specific data ##############
