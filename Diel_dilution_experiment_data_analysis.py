@@ -463,6 +463,46 @@ def paired_t_with_key(data, key):
     test_result = stats.ttest_rel(no_nut, nut)
     return test_result
 
+########Dilution Fraction Calculation##########
+directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #for PC put r'C:your\path'
+excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx'
+sheet_to_use_dil = 'Dilution_Fraction'
+
+
+file_to_read = directory_to_use + '/' + excel_file_to_use
+
+dil_frac_data = pd.read_excel(file_to_read, sheet_name = sheet_to_use_dil)
+
+
+dil_frac_df = pd.DataFrame(dil_frac_data)
+
+
+temp_hundred_percent = dil_frac_df.Dilution.eq(1) # <---HERE Dr. T, temp_hundred_percent comes out as true or false, thinking of doing something similar to what we did with averaging Chl
+if temp_hundred_percent a.all(true) :
+    hundred_percent = dil_frac_df.Chlorophyll_ug/L()
+    
+# eighty_percent = dil_frac_df.Dilution.eq(0.8)
+# fortyfive_percent = dil_frac_df.Dilution.eq(0.45)
+# sixity_percent = dil_frac_df.Dilution.eq(0.6)
+# twenty_percent = dil_frac_df.Dilution.eq(0.2)
+
+print(hundred_percent) #this comes out as a bool (i.e. true or flase) trying to work around it by using the if statment 
+
+ave_hundred_percent = statistics.mean(hundred_percent)
+# ave_eighty_percent = statistics.mean(eighty_percent)
+# ave_fortyfive_percent =statistics.mean(fortyfive_percent)
+# ave_sixity_percent = statistics.mean(sixity_percent)
+# ace_twenty_percent = statistics.mean(twenty_percent)
+
+print(ave_hundred_percent)
+
+nominal_hundred = ave_hundred_percent/ave_hundred_percent 
+# nominal_eighty = ave_eighty_percent/ave_hundred_percent 
+# nominal_fortyfive = ave_fortyfive_percent/ave_hundred_percent 
+# nominal_sixity = ave_sixity_percent/ave_hundred_percent
+# nominal_twenty = ave_twenty_percent/ave_hundred_percent
+
+#dilution_fractions = [nominal_hundred, nominal_eighty, nominal_fortyfive, nominal_sixity, nominal_twenty]
 
 ######################################################################
 ########## Experiment-specific data ##############
@@ -475,9 +515,9 @@ def paired_t_with_key(data, key):
 
 ######### Expt. 1 #############
 
-directory_to_use = '/Users/dtaniguchi/Research/Python_practice' #r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice'
+#directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #'/Users/dtaniguchi/Research/Python_practice' 
 #/Users/dtaniguchi/Research/Python_practice
-excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx' 
+#excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx' 
 sheet_to_use = 'working_data'
 
 file_to_read = directory_to_use + '/' + excel_file_to_use 
@@ -560,29 +600,17 @@ for key, v in data_dict.items(): # going through list in outer dictionary
 
   #      if d1['Replicate'] == r1 and d1['Time_point'] == t1:
 
-for e in expt:
-    for t in time_pt:
-        for b in bottle_num:
-            temp = []
-            for r in rep:
-                if 'Chlorophyll_ug/L' in locals(): 
-                    temp.append(df(Replicate = r, bottle_num = b, Time_pt = t, Expt_num= e))
-               # temp.append[df(replicate = r, bottle_num = b, expt = e, time_pt = t)], not needed to run (as I understand it now)
-                    print(temp)
+# for e in expt:
+#     for t in time_pt:
+#         for b in bottle_num:
+#             temp = []
+#             for r in rep:
+#                 if 'Chlorophyll_ug/L' in locals(): 
+#                     temp.append(df(Replicate = r, bottle_num = b, Time_pt = t, Expt_num= e))
+#                # temp.append[df(replicate = r, bottle_num = b, expt = e, time_pt = t)], not needed to run (as I understand it now)
+#                     print(temp)
 #            chl_ave = statistics.mean(temp) ### <———— LOOK HERE DR. T, says there is no data points to average
 
-
-
-# calc the dilution fraction Function psuedo code
-
-# read in data for calc diltuion fraction , unincubated bottles
-#data_dil_frc = pd.read_excel(r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice\Chl_SIO_pier_forcode.xlsx', sheet_name = '21 & 22 June')
-
-#df_dil_frc = pd.DataFrame(data_dil_frc)
-
-#Colu_names= []
-
-#for loop similar to chl_ave for loop
 
 ###End of Alyssia's Work###
 
