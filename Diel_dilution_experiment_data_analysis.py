@@ -463,7 +463,12 @@ def paired_t_with_key(data, key):
     test_result = stats.ttest_rel(no_nut, nut)
     return test_result
 
+######################################################################################
+########Code for finding the grazing and growth rates using Chlorophyll data##########
+######################################################################################
+
 ########Dilution Fraction Calculation##########
+
 # where the data is located
 directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #for PC put r'C:your\path'
 excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx'
@@ -500,9 +505,9 @@ nominal_fortyfive = ave_fortyfive_percent/ave_hundred_percent
 nominal_twenty = ave_twenty_percent/ave_hundred_percent
 
 # put dilution fractions into a list 
-dilution_fractions = [nominal_hundred, nominal_eighty, nominal_fortyfive, nominal_sixity, nominal_twenty]
-
-print(dilution_fractions)
+# dilution_fractions = [nominal_hundred, nominal_eighty, nominal_fortyfive, nominal_sixity, nominal_twenty]
+# print(dilution_fractions)
+dilution_fractions= [1, 0.8136, 0.6213, 0.4197, 0.2291] # dilution fractions from another experiment using the same squishy bottle, these values will be used for Expt 1,2, and 3 summer 2021
 
 
 ######################################################################
@@ -519,7 +524,7 @@ print(dilution_fractions)
 #directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #'/Users/dtaniguchi/Research/Python_practice' 
 #/Users/dtaniguchi/Research/Python_practice
 #excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx' 
-sheet_to_use = 'working_data'
+sheet_to_use = 'working_data_exp2'
 
 file_to_read = directory_to_use + '/' + excel_file_to_use 
 ###Beginning of Alyssia's work###
@@ -536,11 +541,9 @@ col_names = ['Bottle_number','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','T
 df = pd.DataFrame(data)
 
 # Putting data into dictionary
-data_dict = data_in_dict(df, col_names) #Also LOOK HERE, Dr. T...I am assuming you will want us to add chl_ave to this dictionary, is that correct? If so I will move this line below the average chlorophyll for loop
-print(data_dict)
+data_dict = data_in_dict(df, col_names) 
 
-
-###for loop to obtain all the avg chlorophyll values, (needs more debugging)
+###for loop to obtain all the avg chlorophyll values
 
 #With in df
 #Unique list of experimennts
@@ -553,6 +556,7 @@ bottle_num =list(set(df.Bottle_number))# ['NaN', '1A', '1B', '2A', '2B', '3A', '
 
 data = data_dict.copy() # Getting new dictionary into which will put average values
 #Going through dictionary to find average values
+list_ave_chl = [] #empty list for average chlorophyll
 for key, v in data_dict.items(): # going through list in outer dictionary
 
         for e in expt:
@@ -569,8 +573,6 @@ for key, v in data_dict.items(): # going through list in outer dictionary
                             temp_chl.append(d['Chlorophyll_ug/L'])
                             temp_phaeo.append(d['Phaeopigments_ug/L'])
                     
-#                    print(temp_chl)
-#                    print(temp_phaeo)
                             
                             
                     # Finding average of chlorophyll, is possible
@@ -580,10 +582,12 @@ for key, v in data_dict.items(): # going through list in outer dictionary
                         chl_ave = temp_chl[0] # chl average is equal to that one value
                     if len(temp_chl) > 1: # if tehre is more then one value in the list
                         chl_ave= statistics.mean(temp_chl) # chl average is the average of chl values
+                        list_ave_chl.append(chl_ave) # append each chl average to this list
                         
                     if temp_chl:
                         print('temp_chl = ',temp_chl)
                         print('average=', chl_ave)
+                        print('list of ave chl =', list_ave_chl) 
                     
                     # Same as for chl above, but for phaeopigments
                     if not temp_phaeo: 
@@ -592,28 +596,50 @@ for key, v in data_dict.items(): # going through list in outer dictionary
                         phaeo_ave = temp_phaeo[0]
                     if len(temp_phaeo) > 1:
                         phaeo_ave= statistics.mean(temp_phaeo)
+                        
+# put ave_chl in dictionary where bottle is the key... couldnt use bottle_num because it printed bottles out of order (order is important)
+bottle = ['carboy', '1A', '2A', '3A', '4A', '5A', '6A', '1D', '1B', '2B', '3B', '4B', '5B', '6B', '2D', '7A', '8A', '9A', '10A', '11A', '12A', '3D', '7B', '8B', '9B', '10B', '11B', '12B', '4D']
+ave_chl_dict = dict(zip(bottle, list_ave_chl))
+print(ave_chl_dict)
 
                         
-                    
-#                print(chl_ave)
-#                print(phaeo_ave)
-  #   for d1 in l:
+###########Calulate the apparent growth rate##############
 
-  #      if d1['Replicate'] == r1 and d1['Time_point'] == t1:
+# how to distuish between tiem points, first three will be t0, t1 will be 
 
-# for e in expt:
-#     for t in time_pt:
-#         for b in bottle_num:
-#             temp = []
-#             for r in rep:
-#                 if 'Chlorophyll_ug/L' in locals(): 
-#                     temp.append(df(Replicate = r, bottle_num = b, Time_pt = t, Expt_num= e))
-#                # temp.append[df(replicate = r, bottle_num = b, expt = e, time_pt = t)], not needed to run (as I understand it now)
-#                     print(temp)
-#            chl_ave = statistics.mean(temp) ### <———— LOOK HERE DR. T, says there is no data points to average
+# ave_chl for t0, therefore dilution = 1
+
+ave_one_tzero = ave_chl_dict.get('carboy','None')
+print(ave_one_tzero)
+
+# ave_chl for t1 
+
+ave_one_tone = ave_chl_dict.get('carboy','None')
 
 
-###End of Alyssia's Work###
+# ave_eighty = ave_chl_dict.get(0.8, default = None)
+# ave_sixity = ave_chl_dict.get(0.6, default = None)
+# ave_forty = ave_chl_dict.get(0.4, default = None)
+# ave_twenty = ave_chl_dict.get(0.2, deault = None)
+
+
+# day_growth= (1/0.5)*ln ((chl_avewhateverdilution at t0)/(Ch_ave samedilution at t1))
+# apparent growth rate from night t1 to t2 
+# apparent growth rate for 24 hr t0 to t1 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 expt_Num = 1 #experiment number corresponding to data read in
