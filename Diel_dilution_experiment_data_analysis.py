@@ -57,12 +57,14 @@ def data_in_dict(df, col_names):
             temp2 = temp.values.tolist()
             dict_temp[c] = temp2[0]
 
-        dict_temp['Expt_num'] = expt_num# Adding in experiment number to dictionary
+
+        #dict_temp['Expt_num'] = expt_num# Adding in experiment number to dictionary
 
         bot_num_temp = data_temp.Bottle_number
         bot_num = bot_num_temp.to_string(index=False)
         bot_num = bot_num.strip()
 
+        ###### The code below organizes dictionary by bottle numbers, which works if each experiment is read in separately
         if bot_num in data_dict.keys(): #If bottle already exist in outer dictionary
             list_temp = data_dict.get(bot_num) # Get values from outer dict with key as bottle number
             list_temp.append(dict_temp) #add new value to end of list
@@ -71,6 +73,18 @@ def data_in_dict(df, col_names):
         else: #bottle not in dictionary, must make list of dict and put in outer dict
             list_temp = [dict_temp]
             data_dict[bot_num] = list_temp
+        
+        ###### The code below organizes dictionary so each key is an experiment, which works better if all experiments are in one worksheet
+#        expt_num_temp = data_temp.Expt_num
+#        expt_num = expt_num_temp.to_string(index=False)
+#        expt_num = expt_num.strip()
+#        if expt_num in data_dict.keys(): #If experiment number already exists in outer dictionary
+#            list_temp = data_dict.get(expt_num)# get values from outer dictionary with key as experiment number
+#            list_temp.append(dict_temp) # add new value to end of list
+#            data_dict[expt_num] = list_temp # make longer list value in outer dictionary
+#        else: #experiment not in dictionary, must make list of dict and put in outer dict
+#            list_temp = [dict_temp]
+#            data_dict[expt_num] = list_temp
             
     return data_dict
 
@@ -110,6 +124,7 @@ def dil_frac_calc(df):
     #     dil_dict[jjj] = df_temp[0]
     return dil_dict
 
+###use this function to find growth rate (3 rates, day, night, 24hr) use time in days
 def k_calc (time, init_cell, fin_cell): #Calculates apparent growth rate k in units of time
     # time is amount of time incubation was run, typically in units of days
     #init_cell is initial cell concentration, units of cells per volume
@@ -117,7 +132,7 @@ def k_calc (time, init_cell, fin_cell): #Calculates apparent growth rate k in un
     k = (1/time) * (np.log(fin_cell/init_cell))
     return k
 
-
+###this is dealing with replicate experiments (below)
 def k_calc_from_rep(x,r1,r2,t1,t2,inc_time):
     # This function calculates the apparent growth rate for Prochlorococcus, Synechococcus, 
         #pico-eukaryotes, heterotrophic bacteria, all photosynthetic cells (i.e., everything except het. bac)
@@ -448,6 +463,52 @@ def paired_t_with_key(data, key):
     test_result = stats.ttest_rel(no_nut, nut)
     return test_result
 
+######################################################################################
+########Code for finding the grazing and growth rates using Chlorophyll data##########
+######################################################################################
+
+########Dilution Fraction Calculation##########
+
+# where the data is located
+directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #for PC put r'C:your\path'
+excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx'
+sheet_to_use_dil = 'Dilution_Fraction'
+
+
+file_to_read = directory_to_use + '/' + excel_file_to_use
+
+# read in the data 
+dil_frac_data = pd.read_excel(file_to_read, sheet_name = sheet_to_use_dil)
+
+# read the data in a dataframe
+dil_frac_df = pd.DataFrame(dil_frac_data)
+
+# locate the values in columns Chlorophyll_ug/L with disired dilutions 
+hundred_percent = dil_frac_df.query('Dilution==1')['Chlorophyll_ug/L']
+eighty_percent =dil_frac_df.query('Dilution==0.8')['Chlorophyll_ug/L']
+sixity_percent = dil_frac_df.query('Dilution==0.6')['Chlorophyll_ug/L']
+fortyfive_percent = dil_frac_df.query('Dilution==0.45')['Chlorophyll_ug/L']
+twenty_percent = dil_frac_df.query('Dilution==0.2')['Chlorophyll_ug/L']
+
+# average chlorophyll per dilution 
+ave_hundred_percent = statistics.mean(hundred_percent)
+ave_eighty_percent = statistics.mean(eighty_percent)
+ave_sixity_percent = statistics.mean(sixity_percent)
+ave_fortyfive_percent =statistics.mean(fortyfive_percent)
+ave_twenty_percent = statistics.mean(twenty_percent)
+
+# find the dilution fraction 
+nominal_hundred = ave_hundred_percent/ave_hundred_percent 
+nominal_eighty = ave_eighty_percent/ave_hundred_percent 
+nominal_sixity = ave_sixity_percent/ave_hundred_percent
+nominal_fortyfive = ave_fortyfive_percent/ave_hundred_percent 
+nominal_twenty = ave_twenty_percent/ave_hundred_percent
+
+# put dilution fractions into a list 
+# dilution_fractions = [nominal_hundred, nominal_eighty, nominal_fortyfive, nominal_sixity, nominal_twenty]
+# print(dilution_fractions)
+dilution_fractions= [1, 0.8136, 0.6213, 0.4197, 0.2291] # dilution fractions from another experiment using the same squishy bottle, these values will be used for Expt 1,2, and 3 summer 2021
+
 
 ######################################################################
 ########## Experiment-specific data ##############
@@ -459,29 +520,131 @@ def paired_t_with_key(data, key):
 # data_timept0 is something like {'pro_per_mL':20000, 'syn_per_mL':40000, 'Nutrients_1'=0,'Time_point'=0}
 
 ######### Expt. 1 #############
-data = pd.read_excel('/Users/dtaniguchi/Documents/Siph_food_web_cruise/Flow_cytometry/Working_file_data_ALL_POPS_ALL_DAYS.xlsx', sheet_name = 'Expt_1')
-df = pd.DataFrame(data,columns=['WELL_ID','RUN_DATE','NOTES','Sample_No','pro_per_mL','syn_per_mL',\
-                                'peuk_per_mL','hbact_per_mL',\
-                                'pro_Norm_FSC','pro_Norm_SSC','pro_Norm_CHL','pro_Norm_DNA',\
-                               'syn_Norm_FSC','syn_Norm_SSC','syn_Norm_CHL','syn_Norm_DNA',\
-                               'peuk_Norm_FSC','peuk_Norm_SSC','peuk_Norm_CHL','peuk_Norm_DNA',\
-                               'hbact_Norm_FSC','hbact_Norm_SSC','hbact_Norm_DNA',\
-                               'Fraction_whole_seawater','Nutrients_1','Time_point','Bottle_number','Replicate'])
 
-expt_num = 1 #experiment number corresponding to data read in
+#directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #'/Users/dtaniguchi/Research/Python_practice' 
+#/Users/dtaniguchi/Research/Python_practice
+#excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx' 
+sheet_to_use = 'working_data_exp2'
+
+file_to_read = directory_to_use + '/' + excel_file_to_use 
+###Beginning of Alyssia's work###
+
+
+data = pd.read_excel(file_to_read, sheet_name = sheet_to_use)
+
+col_names = ['Bottle_number','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_point','Expt_num',\
+                                'Sample_No','Depth_m',\
+                                'Vol_Filtered','First_Blank','F0_RFU','F0_Second_Run_RFU',\
+                               'Fa_RFU','Fa_Second_Run_RFU','End_Blank','Volume_Acetone_ml',\
+                               'Chlorophyll_ug/L','Phaeopigments_ug/L']# add 'Chl_averages'
+
+df = pd.DataFrame(data)
 
 # Putting data into dictionary
-col_names=['Sample_No','pro_per_mL','syn_per_mL',\
-                                'peuk_per_mL','hbact_per_mL',\
-#                                 'pro_Norm_FSC','pro_Norm_SSC','pro_Norm_CHL','pro_Norm_DNA',\
-#                                'syn_Norm_FSC','syn_Norm_SSC','syn_Norm_CHL','syn_Norm_DNA',\
-#                                'peuk_Norm_FSC','peuk_Norm_SSC','peuk_Norm_CHL','peuk_Norm_DNA',\
-#                                'hbact_Norm_FSC','hbact_Norm_SSC','hbact_Norm_DNA',\
-                               'Fraction_whole_seawater','Nutrients_1','Time_point',\
-#                                'Bottle_number',\
-                               'Replicate']
+data_dict = data_in_dict(df, col_names) 
 
-data_dict = data_in_dict(df, col_names)
+###for loop to obtain all the avg chlorophyll values
+
+#With in df
+#Unique list of experimennts
+expt = list(set(df.Expt_num))#[1,2]
+#Unique list of time points
+time_pt = list(set(df.Time_point))#[0,1]#, 1, 2]
+#Unique list of bottle numbers
+
+bottle_num =list(set(df.Bottle_number))# ['NaN', '1A', '1B', '2A', '2B', '3A', '3B', '1D', '3D', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '4D', '10B', '11B', '12B', '2D']
+
+data = data_dict.copy() # Getting new dictionary into which will put average values
+#Going through dictionary to find average values
+list_ave_chl = [] #empty list for average chlorophyll
+for key, v in data_dict.items(): # going through list in outer dictionary
+
+        for e in expt:
+#            print('expt = ',e)
+            for t in time_pt:
+#                print('time point=',t)
+                for b in bottle_num:
+#                    print('bottle number=',b)
+                    temp_chl = []
+                    temp_phaeo = []
+                    for d in v:
+
+                        if d['Expt_num'] == e and d['Time_point'] == t and d['Bottle_number'] == b:
+                            temp_chl.append(d['Chlorophyll_ug/L'])
+                            temp_phaeo.append(d['Phaeopigments_ug/L'])
+                    
+                            
+                            
+                    # Finding average of chlorophyll, is possible
+                    if not temp_chl:# if chl list is empty
+                        chl_ave = float("NAN") # chl average is nan
+                    if len(temp_chl) ==1:#if the list is just one value
+                        chl_ave = temp_chl[0] # chl average is equal to that one value
+                    if len(temp_chl) > 1: # if tehre is more then one value in the list
+                        chl_ave= statistics.mean(temp_chl) # chl average is the average of chl values
+                        list_ave_chl.append(chl_ave) # append each chl average to this list
+                        
+                    if temp_chl:
+                        print('temp_chl = ',temp_chl)
+                        print('average=', chl_ave)
+                        print('list of ave chl =', list_ave_chl) 
+                    
+                    # Same as for chl above, but for phaeopigments
+                    if not temp_phaeo: 
+                        phaeo_ave = float("Nan")
+                    if len(temp_phaeo) == 1:
+                        phaeo_ave = temp_phaeo[0]
+                    if len(temp_phaeo) > 1:
+                        phaeo_ave= statistics.mean(temp_phaeo)
+                        
+# put ave_chl in dictionary where bottle is the key... couldnt use bottle_num because it printed bottles out of order (order is important)
+bottle = ['carboy', '1A', '2A', '3A', '4A', '5A', '6A', '1D', '1B', '2B', '3B', '4B', '5B', '6B', '2D', '7A', '8A', '9A', '10A', '11A', '12A', '3D', '7B', '8B', '9B', '10B', '11B', '12B', '4D']
+ave_chl_dict = dict(zip(bottle, list_ave_chl))
+print(ave_chl_dict)
+
+                        
+###########Calulate the apparent growth rate##############
+
+# how to distuish between tiem points, first three will be t0, t1 will be 
+
+# ave_chl for t0, therefore dilution = 1
+
+ave_one_tzero = ave_chl_dict.get('carboy','None')
+print(ave_one_tzero)
+
+# ave_chl for t1 
+
+ave_one_tone = ave_chl_dict.get('carboy','None')
+
+
+# ave_eighty = ave_chl_dict.get(0.8, default = None)
+# ave_sixity = ave_chl_dict.get(0.6, default = None)
+# ave_forty = ave_chl_dict.get(0.4, default = None)
+# ave_twenty = ave_chl_dict.get(0.2, deault = None)
+
+
+# day_growth= (1/0.5)*ln ((chl_avewhateverdilution at t0)/(Ch_ave samedilution at t1))
+# apparent growth rate from night t1 to t2 
+# apparent growth rate for 24 hr t0 to t1 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+expt_Num = 1 #experiment number corresponding to data read in
+
+
 
 # Replicates to compare for 24 hour, 12-day, and 12-hour night rates
 # 24-hour rates
