@@ -600,22 +600,55 @@ for key, v in data_dict.items(): # going through list in outer dictionary
 # put ave_chl in dictionary where bottle is the key... couldnt use bottle_num because it printed bottles out of order (order is important)
 bottle = ['carboy', '1A', '2A', '3A', '4A', '5A', '6A', '1D', '1B', '2B', '3B', '4B', '5B', '6B', '2D', '7A', '8A', '9A', '10A', '11A', '12A', '3D', '7B', '8B', '9B', '10B', '11B', '12B', '4D']
 ave_chl_dict = dict(zip(bottle, list_ave_chl))
-print(ave_chl_dict)
 
                         
 ###########Calulate the apparent growth rate##############
 
-# how to distuish between tiem points, first three will be t0, t1 will be 
+### below seperating the ave chl  by time point  
 
 # ave_chl for t0, therefore dilution = 1
 
-ave_one_tzero = ave_chl_dict.get('carboy','None')
-print(ave_one_tzero)
+ave_tzero = ave_chl_dict.get('carboy','None')
+print(ave_tzero)
+
 
 # ave_chl for t1 
 
-ave_one_tone = ave_chl_dict.get('carboy','None')
+# ave_chl for t1 
+# bottles number for t1 and dil = 1  
+keys_t1_one = ['5A', '6A', '1D', '5B', '6B', '2D']
+# puts values (average chl) in a list, ends in 'none' when there is no more keys
+ave_t1_one = [ave_chl_dict.get(key) for key in keys_t1_one] 
+print(ave_t1)
 
+# bottle number for t1 and dil = 0.8
+keys_t1_eighty = ['4A', '4B']
+# puts values (average chl) in a list
+ave_t1_eighty = [ave_chl_dict.get(key) for key in keys_t1_eighty]
+
+# bottle number for t1 and dil = 0.6 
+keys_t1_sixity = ['3A', '3B']
+# puts values (average chl) in a list
+ave_t1_sixity = [ave_chl_dict.get(key) for key in keys_t1_sixity]
+
+# bottle number for 
+keys_t1_sixity = ['3A', '3B']
+# puts values (average chl) in a list
+ave_t1_sixity = [ave_chl_dict.get(key) for key in keys_t1_sixity]
+
+
+
+
+
+# ave_chl for t2
+
+# bottle number for t2 are the keys  
+keys_t2 = ['7A', '8A', '9A', '10A', '11A', '12A', '3D', '7B', '8B', '9B', '10B', '11B', '12B', '4D']
+# puts vakues (ave chl) for t2 in a list, ends in 'none' when there is no more keys 
+ave_t2 = [ave_chl_dict.get(key) for key in keys_t2]
+print(ave_t2)
+
+# seprate by dilution
 
 # ave_eighty = ave_chl_dict.get(0.8, default = None)
 # ave_sixity = ave_chl_dict.get(0.6, default = None)
