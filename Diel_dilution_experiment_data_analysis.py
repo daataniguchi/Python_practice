@@ -553,7 +553,7 @@ time_pt = list(set(df.Time_point))#[0,1]#, 1, 2]
 #Unique list of bottle numbers
 
 bottle_num =list(set(df.Bottle_number))# ['NaN', '1A', '1B', '2A', '2B', '3A', '3B', '1D', '3D', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '4D', '10B', '11B', '12B', '2D']
-
+print(bottle_num)
 data = data_dict.copy() # Getting new dictionary into which will put average values
 #Going through dictionary to find average values
 list_ave_chl = [] #empty list for average chlorophyll
@@ -598,78 +598,157 @@ for key, v in data_dict.items(): # going through list in outer dictionary
                         phaeo_ave= statistics.mean(temp_phaeo)
                         
 # put ave_chl in dictionary where bottle is the key... couldnt use bottle_num because it printed bottles out of order (order is important)
-bottle = ['carboy', '1A', '2A', '3A', '4A', '5A', '6A', '1D', '1B', '2B', '3B', '4B', '5B', '6B', '2D', '7A', '8A', '9A', '10A', '11A', '12A', '3D', '7B', '8B', '9B', '10B', '11B', '12B', '4D']
+bottle = ['carboy', '1A', '2A', '3A', '4A', '5A', '6A', '1B', '2B', '3B', '4B', '5B', '6B', '2D', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '10B', '11B', '12B', '4D'] # 1D and 3D we didnt take chl samples from 
 ave_chl_dict = dict(zip(bottle, list_ave_chl))
-
+print(ave_chl_dict)
                         
 ###########Calulate the apparent growth rate##############
 
 ### below seperating the ave chl  by time point  
 
-# ave_chl for t0, therefore dilution = 1
-
+# ave_chl for t0
+# therefore dilution = 1
 ave_tzero = ave_chl_dict.get('carboy','None')
-print(ave_tzero)
-
 
 # ave_chl for t1 
 
-# ave_chl for t1 
 # bottles number for t1 and dil = 1  
-keys_t1_one = ['5A', '6A', '1D', '5B', '6B', '2D']
+keys_t1_one = ['5A', '6A', '5B', '6B'] # 1D has no chl samples 
 # puts values (average chl) in a list, ends in 'none' when there is no more keys
 ave_t1_one = [ave_chl_dict.get(key) for key in keys_t1_one] 
-print(ave_t1)
+print(ave_t1_one)
 
 # bottle number for t1 and dil = 0.8
 keys_t1_eighty = ['4A', '4B']
 # puts values (average chl) in a list
 ave_t1_eighty = [ave_chl_dict.get(key) for key in keys_t1_eighty]
 
-# bottle number for t1 and dil = 0.6 
-keys_t1_sixity = ['3A', '3B']
-# puts values (average chl) in a list
-ave_t1_sixity = [ave_chl_dict.get(key) for key in keys_t1_sixity]
+# # bottle number for t1 and dil = 0.6 
+# keys_t1_sixity = ['3A', '3B']
+# # puts values (average chl) in a list
+# ave_t1_sixity = [ave_chl_dict.get(key) for key in keys_t1_sixity]
 
-# bottle number for 
-keys_t1_sixity = ['3A', '3B']
-# puts values (average chl) in a list
-ave_t1_sixity = [ave_chl_dict.get(key) for key in keys_t1_sixity]
+# # bottle number for t1 and dil = 0.4 
+# keys_t1_forty = ['2A', '2B']
+# # puts values (average chl) in a list
+# ave_t1_forty = [ave_chl_dict.get(key) for key in keys_t1_forty]
 
+# # bottle number for t1 and dil = 0.2 
+# keys_t1_twenty = ['1A', '1B', '2D']
+# # puts values (average chl) in a list
+# ave_t1_twenty = [ave_chl_dict.get(key) for key in keys_t1_twenty]
 
+# # ave_chl for t2 
 
+# bottles number for t2 and dil = 1 
+keys_t2_one = ['11A', '12A', '11B', '12B'] # 3D has no chl samples 
+# puts values (average chl) in a list 
+ave_t2_one = [ave_chl_dict.get(key) for key in keys_t2_one]
+print(ave_t2_one)
 
+# bottles number t2 and dil = 0.8 ####Just copy pasted down below 
+keys_t2_eighty = ['10A', '10B']
+# puts values (average chl) in a list 
+ave_t2_eighty = [ave_chl_dict.get(key) for key in keys_t2_eighty]
 
-# ave_chl for t2
+# # bottle number t2 and dil = 0.6 
+# keys_t2_sixity = ['9A', '9B']
+# # puts values (average chl) in a list 
+# ave_t2_sixity = [ave_chl_dict.get(key) for key in keys_t2_sixity]
 
-# bottle number for t2 are the keys  
-keys_t2 = ['7A', '8A', '9A', '10A', '11A', '12A', '3D', '7B', '8B', '9B', '10B', '11B', '12B', '4D']
-# puts vakues (ave chl) for t2 in a list, ends in 'none' when there is no more keys 
-ave_t2 = [ave_chl_dict.get(key) for key in keys_t2]
-print(ave_t2)
+# # bottle number t2 and dil = 0.4 
+# keys_t2_forty = ['8A', '8B']
+# # puts values (average chl) in a list 
+# ave_t2_forty = [ave_chl_dict.get(key) for key in keys_t2_forty]
 
-# seprate by dilution
+# # bottles number t2 and dil = 0.2
+# keys_t2_twenty = ['7A', '7B', '4D']
+# # puts values (average chl) in a list 
+# ave_t2_twenty = [ave_chl_dict.get(key) for key in keys_t2_twenty]
 
-# ave_eighty = ave_chl_dict.get(0.8, default = None)
-# ave_sixity = ave_chl_dict.get(0.6, default = None)
-# ave_forty = ave_chl_dict.get(0.4, default = None)
-# ave_twenty = ave_chl_dict.get(0.2, deault = None)
+# Calculate the apparent growth 
 
+###Day time rates###
 
-# day_growth= (1/0.5)*ln ((chl_avewhateverdilution at t0)/(Ch_ave samedilution at t1))
-# apparent growth rate from night t1 to t2 
-# apparent growth rate for 24 hr t0 to t1 
+# App. growth rate for dil = 1 
+for a in ave_t1_one:
+    day_growth_one = (1/0.5)*np.log((a)/(ave_tzero))
+    print(day_growth_one)
+    
+# App. growth rate for dil = 0.8 
+for a in ave_t1_eighty:
+    day_growth_eighty = (1/0.5)*np.log((a)/(ave_tzero))
+    print(day_growth_eighty)
 
+# # App. growth rate for dil = 0.6
+# for a in ave_t1_sixity:
+#     day_growth_eighty = (1/0.5)*np.log((a)/(ave_tzero))
 
+# # App. growth rate for dil = 0.4 
+# for a in ave_t1_forty:
+#     day_growth_forty = (1/0.5)*np.log((a)/(ave_tzero))
 
+# # App. growth rate for dil = 0.2
+# for a in ave_t1_twenty:
+#     day_growth_twenty = (1/0.5)*np.log((a)/(ave_tzero))
+    
 
+### Night time rates ### 
 
+# App. growth rate for dil = 1
+for (a, b) in zip(ave_t2_one, ave_t1_one):
+    night_growth_one = (1/0.5)*np.log((a)/(b))
+    print(night_growth_one)
+        
+# App. growth rate for dil = 0.8 
+for (a, b) in zip(ave_t2_eighty, ave_t1_eighty):
+    night_growth_eighty = (1/0.5)*np.log((a)/(b))
+    print(night_growth_eighty)
+        
+# # App. growth rate for dil = 0.6 
+# for (a, b) in zip(ave_t2_sixity, ave_t1_sixity):
+#     night_growth_sixity = (1/0.5)*np.log((a)/(b))
+#     print(night_growth_sixity)
+    
+# # App. growth rate for dil = 0.4 
+# for (a, b) in zip(ave_t2_forty, ave_t1_forty):
+#     night_growth_forty = (1/0.5)*np.log((a)/(b))
+#     print(night_growth_forty)
+    
+# # App. growth rate for dil = 0.2 
+# for (a, b) in zip(ave_t2_twenty, ave_t1_twenty):
+#     night_growth_twenty = (1/0.5)*np.log((a)/(b))
+#     print(night_growth_twenty)
+    
+###24 hour rates###
 
+# App. growth rate for dil = 1
+for a in ave_t2_one:
+    twentyfourhour_growth_one = (1/0.5)*np.log((a)/(ave_tzero))
+    print(twentyfourhour_growth_one)
+    
+# App. growth rate for dil = 0.8 
+for a in ave_t2_eighty:
+    twentyfourhour_growth_eighty = (1/0.5)*np.log((a)/(ave_tzero))
+    print(twentyfourhour_growth_eighty)
 
+# # App. growth rate for dil = 0.6
+# for a in ave_t1_sixity:
+#     day_growth_eighty = (1/0.5)*np.log((a)/(ave_tzero))
 
+# # App. growth rate for dil = 0.4 
+# for a in ave_t1_forty:
+#     day_growth_forty = (1/0.5)*np.log((a)/(ave_tzero))
 
+# # App. growth rate for dil = 0.2
+# for a in ave_t1_twenty:
+#     day_growth_twenty = (1/0.5)*np.log((a)/(ave_tzero))
 
+####End of calculating the apparent growth rates#####
+# reminder the nut and no nut are not sig diff. 
 
+# Next steps are regression, plots 
+# import matplotlib.pyplot as plt
 
 
 
