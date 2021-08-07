@@ -469,45 +469,45 @@ def paired_t_with_key(data, key):
 
 ########Dilution Fraction Calculation##########
 
-# where the data is located
-directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #for PC put r'C:your\path'
-excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx'
-sheet_to_use_dil = 'Dilution_Fraction'
+# # where the data is located
+# directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #for PC put r'C:your\path'
+# excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx'
+# sheet_to_use_dil = 'Dilution_Fraction'
 
 
-file_to_read = directory_to_use + '/' + excel_file_to_use
+# file_to_read = directory_to_use + '/' + excel_file_to_use
 
-# read in the data 
-dil_frac_data = pd.read_excel(file_to_read, sheet_name = sheet_to_use_dil)
+# # read in the data 
+# dil_frac_data = pd.read_excel(file_to_read, sheet_name = sheet_to_use_dil)
 
-# read the data in a dataframe
-dil_frac_df = pd.DataFrame(dil_frac_data)
+# # read the data in a dataframe
+# dil_frac_df = pd.DataFrame(dil_frac_data)
 
-# locate the values in columns Chlorophyll_ug/L with disired dilutions 
-hundred_percent = dil_frac_df.query('Dilution==1')['Chlorophyll_ug/L']
-eighty_percent =dil_frac_df.query('Dilution==0.8')['Chlorophyll_ug/L']
-sixity_percent = dil_frac_df.query('Dilution==0.6')['Chlorophyll_ug/L']
-fortyfive_percent = dil_frac_df.query('Dilution==0.45')['Chlorophyll_ug/L']
-twenty_percent = dil_frac_df.query('Dilution==0.2')['Chlorophyll_ug/L']
+# # locate the values in columns Chlorophyll_ug/L with disired dilutions 
+# hundred_percent = dil_frac_df.query('Dilution==1')['Chlorophyll_ug/L']
+# eighty_percent =dil_frac_df.query('Dilution==0.8')['Chlorophyll_ug/L']
+# sixity_percent = dil_frac_df.query('Dilution==0.6')['Chlorophyll_ug/L']
+# fortyfive_percent = dil_frac_df.query('Dilution==0.45')['Chlorophyll_ug/L']
+# twenty_percent = dil_frac_df.query('Dilution==0.2')['Chlorophyll_ug/L']
 
-# average chlorophyll per dilution 
-ave_hundred_percent = statistics.mean(hundred_percent)
-ave_eighty_percent = statistics.mean(eighty_percent)
-ave_sixity_percent = statistics.mean(sixity_percent)
-ave_fortyfive_percent =statistics.mean(fortyfive_percent)
-ave_twenty_percent = statistics.mean(twenty_percent)
+# # average chlorophyll per dilution 
+# ave_hundred_percent = statistics.mean(hundred_percent)
+# ave_eighty_percent = statistics.mean(eighty_percent)
+# ave_sixity_percent = statistics.mean(sixity_percent)
+# ave_fortyfive_percent =statistics.mean(fortyfive_percent)
+# ave_twenty_percent = statistics.mean(twenty_percent)
 
-# find the dilution fraction 
-nominal_hundred = ave_hundred_percent/ave_hundred_percent 
-nominal_eighty = ave_eighty_percent/ave_hundred_percent 
-nominal_sixity = ave_sixity_percent/ave_hundred_percent
-nominal_fortyfive = ave_fortyfive_percent/ave_hundred_percent 
-nominal_twenty = ave_twenty_percent/ave_hundred_percent
+# # find the dilution fraction 
+# nominal_hundred = ave_hundred_percent/ave_hundred_percent 
+# nominal_eighty = ave_eighty_percent/ave_hundred_percent 
+# nominal_sixity = ave_sixity_percent/ave_hundred_percent
+# nominal_fortyfive = ave_fortyfive_percent/ave_hundred_percent 
+# nominal_twenty = ave_twenty_percent/ave_hundred_percent
 
-# put dilution fractions into a list 
-# dilution_fractions = [nominal_hundred, nominal_eighty, nominal_fortyfive, nominal_sixity, nominal_twenty]
-# print(dilution_fractions)
-dilution_fractions= [1, 0.8136, 0.6213, 0.4197, 0.2291] # dilution fractions from another experiment using the same squishy bottle, these values will be used for Expt 1,2, and 3 summer 2021
+# # put dilution fractions into a list 
+# # dilution_fractions = [nominal_hundred, nominal_eighty, nominal_fortyfive, nominal_sixity, nominal_twenty]
+# # print(dilution_fractions)
+# dilution_fractions= [1, 0.8136, 0.6213, 0.4197, 0.2291] # dilution fractions from another experiment using the same squishy bottle, these values will be used for Expt 1,2, and 3 summer 2021
 
 
 ######################################################################
@@ -521,16 +521,17 @@ dilution_fractions= [1, 0.8136, 0.6213, 0.4197, 0.2291] # dilution fractions fro
 
 ######### Expt. 1 #############
 
-#directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #'/Users/dtaniguchi/Research/Python_practice' 
-#/Users/dtaniguchi/Research/Python_practice
-#excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx' 
-sheet_to_use = 'working_data_exp2'
+directory_to_use = r'C:\Users\alyssia\Desktop\Research_Material_Dr_T\Python_practice' #'/Users/dtaniguchi/Research/Python_practice' 
+# /Users/dtaniguchi/Research/Python_practice
+excel_file_to_use = 'Chl_SIO_pier_forcode.xlsx' 
+sheet_to_use = 'working_data_exp1_anissa'
 
 file_to_read = directory_to_use + '/' + excel_file_to_use 
 ###Beginning of Alyssia's work###
 
 
 data = pd.read_excel(file_to_read, sheet_name = sheet_to_use)
+print(data)
 
 col_names = ['Bottle_number','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','Time_point','Expt_num',\
                                 'Sample_No','Depth_m',\
@@ -539,10 +540,10 @@ col_names = ['Bottle_number','Fraction_Whole_SW','Nut_0_No_Nut_1','Replicate','T
                                'Chlorophyll_ug/L','Phaeopigments_ug/L']# add 'Chl_averages'
 
 df = pd.DataFrame(data)
-
+print(df)
 # Putting data into dictionary
 data_dict = data_in_dict(df, col_names) 
-
+print(data_dict)
 ###for loop to obtain all the avg chlorophyll values
 
 #With in df
@@ -552,7 +553,8 @@ expt = list(set(df.Expt_num))#[1,2]
 time_pt = list(set(df.Time_point))#[0,1]#, 1, 2]
 #Unique list of bottle numbers
 
-bottle_num =list(set(df.Bottle_number))# ['NaN', '1A', '1B', '2A', '2B', '3A', '3B', '1D', '3D', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '4D', '10B', '11B', '12B', '2D']
+# bottle_num =list(set(df.Bottle_number))# ['NaN', '1A', '1B', '2A', '2B', '3A', '3B', '1D', '3D', '4A', '4B', '5A', '5B', '6A', '6B', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '4D', '10B', '11B', '12B', '2D']
+bottle_num = ['carboy', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34'] # for anissa data 
 print(bottle_num)
 data = data_dict.copy() # Getting new dictionary into which will put average values
 #Going through dictionary to find average values
@@ -598,7 +600,8 @@ for key, v in data_dict.items(): # going through list in outer dictionary
                         phaeo_ave= statistics.mean(temp_phaeo)
                         
 # put ave_chl in dictionary where bottle is the key... couldnt use bottle_num because it printed bottles out of order (order is important)
-bottle = ['carboy', '1A', '2A', '3A', '4A', '5A', '6A', '1B', '2B', '3B', '4B', '5B', '6B', '2D', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '10B', '11B', '12B', '4D'] # 1D and 3D we didnt take chl samples from 
+# bottle = ['carboy', '1A', '2A', '3A', '4A', '5A', '6A', '1B', '2B', '3B', '4B', '5B', '6B', '2D', '7A', '8A', '9A', '10A', '11A', '12A', '7B', '8B', '9B', '10B', '11B', '12B', '4D'] # 1D and 3D we didnt take chl samples from 
+bottle = ['carboy', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34'] # for anissas data 
 ave_chl_dict = dict(zip(bottle, list_ave_chl))
 print(ave_chl_dict)
                         
@@ -623,20 +626,20 @@ keys_t1_eighty = ['4A', '4B']
 # puts values (average chl) in a list
 ave_t1_eighty = [ave_chl_dict.get(key) for key in keys_t1_eighty]
 
-# # bottle number for t1 and dil = 0.6 
-# keys_t1_sixity = ['3A', '3B']
-# # puts values (average chl) in a list
-# ave_t1_sixity = [ave_chl_dict.get(key) for key in keys_t1_sixity]
+# bottle number for t1 and dil = 0.6 
+keys_t1_sixity = ['3A', '3B']
+# puts values (average chl) in a list
+ave_t1_sixity = [ave_chl_dict.get(key) for key in keys_t1_sixity]
 
-# # bottle number for t1 and dil = 0.4 
-# keys_t1_forty = ['2A', '2B']
-# # puts values (average chl) in a list
-# ave_t1_forty = [ave_chl_dict.get(key) for key in keys_t1_forty]
+# bottle number for t1 and dil = 0.4 
+keys_t1_forty = ['2A', '2B']
+# puts values (average chl) in a list
+ave_t1_forty = [ave_chl_dict.get(key) for key in keys_t1_forty]
 
-# # bottle number for t1 and dil = 0.2 
-# keys_t1_twenty = ['1A', '1B', '2D']
-# # puts values (average chl) in a list
-# ave_t1_twenty = [ave_chl_dict.get(key) for key in keys_t1_twenty]
+# bottle number for t1 and dil = 0.2 
+keys_t1_twenty = ['1A', '1B', '2D']
+# puts values (average chl) in a list
+ave_t1_twenty = [ave_chl_dict.get(key) for key in keys_t1_twenty]
 
 # # ave_chl for t2 
 
@@ -644,106 +647,114 @@ ave_t1_eighty = [ave_chl_dict.get(key) for key in keys_t1_eighty]
 keys_t2_one = ['11A', '12A', '11B', '12B'] # 3D has no chl samples 
 # puts values (average chl) in a list 
 ave_t2_one = [ave_chl_dict.get(key) for key in keys_t2_one]
-print(ave_t2_one)
+# print(ave_t2_one)
 
 # bottles number t2 and dil = 0.8 ####Just copy pasted down below 
 keys_t2_eighty = ['10A', '10B']
 # puts values (average chl) in a list 
 ave_t2_eighty = [ave_chl_dict.get(key) for key in keys_t2_eighty]
 
-# # bottle number t2 and dil = 0.6 
-# keys_t2_sixity = ['9A', '9B']
-# # puts values (average chl) in a list 
-# ave_t2_sixity = [ave_chl_dict.get(key) for key in keys_t2_sixity]
+# bottle number t2 and dil = 0.6 
+keys_t2_sixity = ['9A', '9B']
+# puts values (average chl) in a list 
+ave_t2_sixity = [ave_chl_dict.get(key) for key in keys_t2_sixity]
 
-# # bottle number t2 and dil = 0.4 
-# keys_t2_forty = ['8A', '8B']
-# # puts values (average chl) in a list 
-# ave_t2_forty = [ave_chl_dict.get(key) for key in keys_t2_forty]
+# bottle number t2 and dil = 0.4 
+keys_t2_forty = ['8A', '8B']
+# puts values (average chl) in a list 
+ave_t2_forty = [ave_chl_dict.get(key) for key in keys_t2_forty]
 
-# # bottles number t2 and dil = 0.2
-# keys_t2_twenty = ['7A', '7B', '4D']
-# # puts values (average chl) in a list 
-# ave_t2_twenty = [ave_chl_dict.get(key) for key in keys_t2_twenty]
+# bottles number t2 and dil = 0.2
+keys_t2_twenty = ['7A', '7B', '4D']
+# puts values (average chl) in a list 
+ave_t2_twenty = [ave_chl_dict.get(key) for key in keys_t2_twenty]
 
 # Calculate the apparent growth 
 
 ###Day time rates###
+print('Day rates below', )
 
 # App. growth rate for dil = 1 
 for a in ave_t1_one:
     day_growth_one = (1/0.5)*np.log((a)/(ave_tzero))
-    print(day_growth_one)
+    print('hundred', day_growth_one)
     
 # App. growth rate for dil = 0.8 
 for a in ave_t1_eighty:
-    day_growth_eighty = (1/0.5)*np.log((a)/(ave_tzero))
-    print(day_growth_eighty)
+    day_growth_eighty = (1/0.5)*np.log((a)/(ave_tzero* 0.8136))
+    print('eighty', day_growth_eighty)
 
-# # App. growth rate for dil = 0.6
-# for a in ave_t1_sixity:
-#     day_growth_eighty = (1/0.5)*np.log((a)/(ave_tzero))
-
-# # App. growth rate for dil = 0.4 
-# for a in ave_t1_forty:
-#     day_growth_forty = (1/0.5)*np.log((a)/(ave_tzero))
-
-# # App. growth rate for dil = 0.2
-# for a in ave_t1_twenty:
-#     day_growth_twenty = (1/0.5)*np.log((a)/(ave_tzero))
-    
+# App. growth rate for dil = 0.6
+for a in ave_t1_sixity:
+    day_growth_sixity = (1/0.5)*np.log((a)/(ave_tzero*0.6213))
+    print('sixity', day_growth_sixity)
+# App. growth rate for dil = 0.4 
+for a in ave_t1_forty:
+    day_growth_forty = (1/0.5)*np.log((a)/(ave_tzero*0.4197))
+    print('forty', day_growth_forty)
+# App. growth rate for dil = 0.2
+for a in ave_t1_twenty:
+    day_growth_twenty = (1/0.5)*np.log((a)/(ave_tzero*0.2291))
+    print('twenty', day_growth_twenty)
 
 ### Night time rates ### 
-
+print('')
+print('Night rates below')
 # App. growth rate for dil = 1
 for (a, b) in zip(ave_t2_one, ave_t1_one):
     night_growth_one = (1/0.5)*np.log((a)/(b))
-    print(night_growth_one)
+    print('hundred', night_growth_one)
         
 # App. growth rate for dil = 0.8 
 for (a, b) in zip(ave_t2_eighty, ave_t1_eighty):
     night_growth_eighty = (1/0.5)*np.log((a)/(b))
-    print(night_growth_eighty)
+    print('eighty', night_growth_eighty)
         
-# # App. growth rate for dil = 0.6 
-# for (a, b) in zip(ave_t2_sixity, ave_t1_sixity):
-#     night_growth_sixity = (1/0.5)*np.log((a)/(b))
-#     print(night_growth_sixity)
+# App. growth rate for dil = 0.6 
+for (a, b) in zip(ave_t2_sixity, ave_t1_sixity):
+    night_growth_sixity = (1/0.5)*np.log((a)/(b))
+    print('sixity', night_growth_sixity)
     
-# # App. growth rate for dil = 0.4 
-# for (a, b) in zip(ave_t2_forty, ave_t1_forty):
-#     night_growth_forty = (1/0.5)*np.log((a)/(b))
-#     print(night_growth_forty)
+# App. growth rate for dil = 0.4 
+for (a, b) in zip(ave_t2_forty, ave_t1_forty):
+    night_growth_forty = (1/0.5)*np.log((a)/(b))
+    print('forty', night_growth_forty)
     
-# # App. growth rate for dil = 0.2 
-# for (a, b) in zip(ave_t2_twenty, ave_t1_twenty):
-#     night_growth_twenty = (1/0.5)*np.log((a)/(b))
-#     print(night_growth_twenty)
+# App. growth rate for dil = 0.2 
+for (a, b) in zip(ave_t2_twenty, ave_t1_twenty):
+    night_growth_twenty = (1/0.5)*np.log((a)/(b))
+    print('twenty', night_growth_twenty)
     
 ###24 hour rates###
+print('')
+print('24 hour rates below')
 
 # App. growth rate for dil = 1
 for a in ave_t2_one:
-    twentyfourhour_growth_one = (1/0.5)*np.log((a)/(ave_tzero))
-    print(twentyfourhour_growth_one)
+    twentyfourhour_growth_one = (1/1)*np.log((a)/(ave_tzero))
+    print('hundred', twentyfourhour_growth_one)
     
 # App. growth rate for dil = 0.8 
 for a in ave_t2_eighty:
-    twentyfourhour_growth_eighty = (1/0.5)*np.log((a)/(ave_tzero))
-    print(twentyfourhour_growth_eighty)
+    twentyfourhour_growth_eighty = (1/1)*np.log((a)/(ave_tzero*0.8136))
+    print('eighty', twentyfourhour_growth_eighty)
 
-# # App. growth rate for dil = 0.6
-# for a in ave_t1_sixity:
-#     day_growth_eighty = (1/0.5)*np.log((a)/(ave_tzero))
+# App. growth rate for dil = 0.6
+for a in ave_t2_sixity:
+    twentyfourhour_growth_sixity = (1/1)*np.log((a)/(ave_tzero*0.6213))
+    print('sixity', twentyfourhour_growth_sixity)
+    
+    
+# App. growth rate for dil = 0.4 
+for a in ave_t2_forty:
+    twentyfourhour_growth_forty = (1/1)*np.log((a)/(ave_tzero*0.4197))
+    print('forty', twentyfourhour_growth_forty)
 
-# # App. growth rate for dil = 0.4 
-# for a in ave_t1_forty:
-#     day_growth_forty = (1/0.5)*np.log((a)/(ave_tzero))
-
-# # App. growth rate for dil = 0.2
-# for a in ave_t1_twenty:
-#     day_growth_twenty = (1/0.5)*np.log((a)/(ave_tzero))
-
+# App. growth rate for dil = 0.2
+for a in ave_t2_twenty:
+    twentyfourhour_growth_twenty = (1/1)*np.log((a)/(ave_tzero*0.2291))
+    print('twenty', twentyfourhour_growth_twenty)
+    
 ####End of calculating the apparent growth rates#####
 # reminder the nut and no nut are not sig diff. 
 
