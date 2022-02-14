@@ -16,6 +16,8 @@ def graph(data, group, x, y):
     plt.style.use('ggplot')
     plt.legend(title=group)
     plt.show()
+
+
 avg_data = mean_data('C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx', 'Profiles', ['Cast #', 'Depth (m)'])
 
 print(avg_data)
