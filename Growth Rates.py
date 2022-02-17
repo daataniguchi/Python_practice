@@ -20,6 +20,16 @@ def chl_0(file, sheet, cols): #chl value used as chl_0
     chl_0 = value['Chlorophyll, ug/L'] #locates chl_0 value
     return chl_0
 
+def graph_rates(x,y): #create rates scatter plot
+    m, b = np.polyfit(x, y , 1) #creates variable for line of best fit
+    plt.scatter(x, y) #plots x, y values
+    plt.plot(x, m*x+b) #plots line of best fit
+    plt.xlabel('Fraction whole seawater')
+    plt.ylabel('Apparent growth rate day')
+    print('Growth rate =' , b) #prints y-int aka growth rate
+    print('Grazing rate =' , -m) #prints slope aka grazing rate
+    plt.show()
+
 x = chl_0('C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx', 'Experiment_4', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater']) #grabbing chl0 value
 avg_data_chl_1 = mean_data_chl_1('C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx','Experiment_4', 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'])
 avg_data_chl_2 = mean_data_chl_2('C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx','Experiment_4', 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'])
@@ -28,8 +38,11 @@ avg_data_chl_2 = mean_data_chl_2('C:\\Users\\Luis\\Research\\Chlorophyll\\Chloro
 avg_data_chl_1['Apparent growth rate day'] = 2*np.log((avg_data_chl_1['Chlorophyll, ug/L']/(x*avg_data_chl_1['Fraction_whole_seawater']))) #calculating day growth rates
 avg_data_chl_1['Apparent growth rate night'] = 2*np.log(avg_data_chl_2['Chlorophyll, ug/L']/avg_data_chl_1['Chlorophyll, ug/L']) #calculates night growing rates
 avg_data_chl_1['Apparent growth rate 24 hrs'] = 1*np.log((avg_data_chl_2['Chlorophyll, ug/L']/(x*avg_data_chl_2['Fraction_whole_seawater']))) #calculating 24 hrs growth rates
-with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-    print(avg_data_chl_1)
+
+
+graph_rates(avg_data_chl_1['Fraction_whole_seawater'], avg_data_chl_1['Apparent growth rate day'])
+
+
 
 
 
