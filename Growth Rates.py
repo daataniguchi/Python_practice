@@ -25,9 +25,9 @@ def graph_rates(x, y): #create rates scatter plot
     print('Grazing rate =' , -m) #prints slope aka grazing rate
     plt.show()
 
-
+file = 'C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx' #selects file
 experiment = 'Experiment_6' #select experiment to work on
-data = mean_data('C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx', experiment , 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater']) #grabbing dataframe
+data = mean_data(file, experiment , 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater']) #grabbing dataframe
 chl_0 = chl_0('C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx', experiment , ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater']) #grabbing chl0 value
 chl_1 = data.loc[data['Time_point'] == 1] #selects data with timepoint = 1
 chl_2 = data.loc[data['Time_point'] == 2].reset_index(drop=True) #selects data with timepoint = 2 and resets index
