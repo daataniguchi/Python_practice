@@ -37,7 +37,7 @@ def app_rates(x, y):
     print('Grazing rate =', -m) #prints slope aka grazing rate
 
 file = 'C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx'
-experiment = 'Experiment_8'#select experiment to work on
+experiment = 'Experiment_6'#select experiment to work on
 
 
 data = orig_data(file, experiment , 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'])
