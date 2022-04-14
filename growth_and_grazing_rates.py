@@ -1,10 +1,11 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from collections import defaultdict
 def orig_data(file, sheet, group, cols):
-    data = pd.read_excel(file, sheet_name=sheet, usecols= cols)
+    data = pd.read_excel(file, sheet_name=sheet)
     drop = data.drop([0,1,2]).replace(0, np.nan).dropna(axis=1, how='all')
-    df = drop.groupby(group, as_index=False, dropna=True, sort=False).mean()
+    df = drop[cols].groupby(group, as_index=False, dropna=True, sort=False).mean()
     return df
 
 def chlorophyll_tp_0(file, sheet, cols): #chl value used as chl0
@@ -31,37 +32,58 @@ def graph_rates(x, y): #create rates scatter plot
     print('Grazing rate =' , -m) #prints slope aka grazing rate
     plt.show()
 
-def app_rates(file, experiment):
-    growth = {}
-    grazing = {}
-    for e in experiment:
-        if e == 'Profiles':
-            continue
-        data = orig_data(file, e, 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'])
-        chl_0 = chlorophyll_tp_0(file, e, ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'])  # selects data with timepoint = 2 and resets index
-        chl_1 = chl_data(file, e, 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'], 1)
-        chl_2 = chl_data(file, e, 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'], 2)
-        data['Apparent growth rate day'] = 2 * np.log((chl_1['Chlorophyll, ug/L'] / (chl_0 * chl_1['Fraction_whole_seawater'])))  # calculating day apparent growth rates
-        data['Apparent growth rate night'] = 2 * np.log(chl_2['Chlorophyll, ug/L'] / chl_1['Chlorophyll, ug/L'])  # calculating night apparent growth rates
-        data['Apparent growth rate 24 hrs'] = 1 * np.log((chl_2['Chlorophyll, ug/L'] / (chl_0 * chl_2['Fraction_whole_seawater'])))  # calculating 24 hr apparent growth rates
-        final_data = data.dropna()
-        time_rate = ['Apparent growth rate day', 'Apparent growth rate night', 'Apparent growth rate 24 hrs']
-        growth[e] = {}
-        grazing[e] = {}
-        for t in time_rate:
-            m, b = np.polyfit(final_data['Fraction_whole_seawater'], final_data[t], 1)
-            growth[e][t] = b
-            grazing[e][t] = -m
-        growth[e]['Day'] = growth[e].pop('Apparent growth rate day')
-        growth[e]['Night'] = growth[e].pop('Apparent growth rate night')
-        growth[e]['24_hrs'] = growth[e].pop('Apparent growth rate 24 hrs')
-        grazing[e]['Day'] = grazing[e].pop('Apparent growth rate day')
-        grazing[e]['Night'] = grazing[e].pop('Apparent growth rate night')
-        grazing[e]['24_hrs'] = grazing[e].pop('Apparent growth rate 24 hrs')
-    print('Growth rates =', growth)
-    print('Grazing rates =', grazing)
+def graph_values(data):
+    inner_keys = list(data.values())[0].keys()
+    x_axis_values = list(map(str, data.keys()))
+    for i in inner_keys:
+        y_axis_values = [v[i] for v in data.values()]
+        plt.plot(x_axis_values, y_axis_values, label = i)
+    plt.legend()
+    plt.show()
 
 file = 'C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx'
 f = pd.ExcelFile('C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx')
 experiment = f.sheet_names #select experiment to work on
-rates = app_rates(file, experiment)
+
+
+growth = {}
+grazing = {}
+net = {}
+e_even = []
+e_odd = []
+for e in experiment:
+    if e == 'Profiles':
+        continue
+    data = orig_data(file, e, ['Station_description', 'Bottle_number'], ['Sampling_start_time', 'Station_description', 'Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'])
+    chl_0 = chlorophyll_tp_0(file, e, ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'])  # selects data with timepoint = 2 and resets index
+    chl_1 = chl_data(file, e, 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'], 1)
+    chl_2 = chl_data(file, e, 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'], 2)
+    data['Day'] = 2 * np.log((chl_1['Chlorophyll, ug/L'] / (chl_0 * chl_1['Fraction_whole_seawater'])))  # calculating day apparent growth rates
+    data['Night'] = 2 * np.log(chl_2['Chlorophyll, ug/L'] / chl_1['Chlorophyll, ug/L'])  # calculating night apparent growth rates
+    data['24 hrs'] = 1 * np.log((chl_2['Chlorophyll, ug/L'] / (chl_0 * chl_2['Fraction_whole_seawater'])))  # calculating 24 hr apparent growth rates
+    final_data = data.dropna()
+    if final_data['Sampling_start_time'].iloc[0] > 1000:
+        e_even.append(e)
+    else:
+        e_odd.append(e)
+    time_rate = ['Day', 'Night', '24 hrs']
+    station = data['Station_description'].iloc[0]
+    if station not in growth and station not in grazing:
+        growth[station] = {}
+        grazing[station] = {}
+    else:
+        growth[station].update()
+        growth[station].update()
+    if e in growth and e in grazing:
+        growth[station][e].update()
+        grazing[station][e].update()
+    elif e not in growth and e not in grazing:
+        growth[station][e] = {}
+        grazing[station][e] = {}
+    for t in time_rate:
+        m, b = np.polyfit(final_data['Fraction_whole_seawater'], final_data[t], 1)
+        growth[station][e][t]= b
+        grazing[station][e][t]= -m
+
+print(growth)
+print(grazing)
