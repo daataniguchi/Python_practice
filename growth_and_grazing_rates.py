@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from collections import defaultdict
+from sklearn.metrics import r2_score
+import seaborn as sns
 def orig_data(file, sheet, group, cols):
     data = pd.read_excel(file, sheet_name=sheet)
     drop = data.drop([0,1,2]).replace(0, np.nan).dropna(axis=1, how='all')
@@ -33,13 +34,9 @@ def graph_rates(x, y): #create rates scatter plot
     plt.show()
 
 def graph_values(data):
-    inner_keys = list(data.values())[0].keys()
-    x_axis_values = list(map(str, data.keys()))
-    for i in inner_keys:
-        y_axis_values = [v[i] for v in data.values()]
-        plt.plot(x_axis_values, y_axis_values, label = i)
-    plt.legend()
-    plt.show()
+    df = pd.DataFrame.from_dict({(i, j): data[i][j] for i in data.keys() for j in data[i].keys()}, orient='index').reset_index().rename(columns={'level_0': 'Location', 'level_1': 'Experiment'}).melt(['Location', 'Start_time', 'Experiment']).rename(columns={'variable': 'Rate'})
+    sns.scatterplot(x='Location', y='value', data=df, marker='.', style='Start_time', hue='Rate', sort= False)
+
 
 file = 'C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx'
 f = pd.ExcelFile('C:\\Users\\Luis\\Research\\Chlorophyll\\Chlorophyll_Data.xlsx')
@@ -49,6 +46,7 @@ experiment = f.sheet_names #select experiment to work on
 growth = {}
 grazing = {}
 net = {}
+r2_value = {}
 e_even = []
 e_odd = []
 for e in experiment:
@@ -58,32 +56,65 @@ for e in experiment:
     chl_0 = chlorophyll_tp_0(file, e, ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'])  # selects data with timepoint = 2 and resets index
     chl_1 = chl_data(file, e, 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'], 1)
     chl_2 = chl_data(file, e, 'Bottle_number', ['Chlorophyll, ug/L', 'Bottle_number', 'Time_point', 'Fraction_whole_seawater'], 2)
-    data['Day'] = 2 * np.log((chl_1['Chlorophyll, ug/L'] / (chl_0 * chl_1['Fraction_whole_seawater'])))  # calculating day apparent growth rates
-    data['Night'] = 2 * np.log(chl_2['Chlorophyll, ug/L'] / chl_1['Chlorophyll, ug/L'])  # calculating night apparent growth rates
-    data['24 hrs'] = 1 * np.log((chl_2['Chlorophyll, ug/L'] / (chl_0 * chl_2['Fraction_whole_seawater'])))  # calculating 24 hr apparent growth rates
+    data['Day_rate'] = 2 * np.log((chl_1['Chlorophyll, ug/L'] / (chl_0 * chl_1['Fraction_whole_seawater'])))  # calculating day apparent growth rates
+    data['Night_rate'] = 2 * np.log(chl_2['Chlorophyll, ug/L'] / chl_1['Chlorophyll, ug/L'])  # calculating night apparent growth rates
+    data['24_hrs_rate'] = 1 * np.log((chl_2['Chlorophyll, ug/L'] / (chl_0 * chl_2['Fraction_whole_seawater'])))  # calculating 24 hr apparent growth rates
     final_data = data.dropna()
     if final_data['Sampling_start_time'].iloc[0] > 1000:
         e_even.append(e)
     else:
         e_odd.append(e)
-    time_rate = ['Day', 'Night', '24 hrs']
+    time_rate = ['Day_rate', 'Night_rate', '24_hrs_rate']
     station = data['Station_description'].iloc[0]
     if station not in growth and station not in grazing:
         growth[station] = {}
         grazing[station] = {}
+        net[station] = {}
+        r2_value[station] = {}
     else:
         growth[station].update()
         growth[station].update()
+        net[station].update()
+        r2_value[station].update()
     if e in growth and e in grazing:
         growth[station][e].update()
         grazing[station][e].update()
+        net[station][e].update()
+        growth_r2_value[station][e].update()
     elif e not in growth and e not in grazing:
         growth[station][e] = {}
         grazing[station][e] = {}
+        net[station][e]= {}
+        r2_value[station][e] = {}
+    if e in e_even:
+        growth[station][e].update({'Start_time':'Daytime'})
+        grazing[station][e].update({'Start_time': 'Daytime'})
+        net[station][e].update({'Start_time': 'Daytime'})
+    elif e in e_odd:
+        growth[station][e].update({'Start_time':'Nighttime'})
+        grazing[station][e].update({'Start_time': 'Nighttime'})
+        net[station][e].update({'Start_time': 'Nighttime'})
     for t in time_rate:
         m, b = np.polyfit(final_data['Fraction_whole_seawater'], final_data[t], 1)
         growth[station][e][t]= b
         grazing[station][e][t]= -m
+        net[station][e][t] = b - (-m)
+        corr_matrix = np.corrcoef(final_data['Fraction_whole_seawater'], final_data[t])
+        corr = corr_matrix[0, 1]
+        R_sq = corr ** 2
+        r2_value[station][e][t] = R_sq
 
-print(growth)
-print(grazing)
+df = pd.DataFrame.from_dict({(i, j): growth[i][j] for i in growth.keys() for j in growth[i].keys()}, orient='index').reset_index().rename(columns={'level_0': 'Location', 'level_1': 'Experiment'}).melt(['Location', 'Start_time', 'Experiment']).rename(columns={'variable': 'Rate'})
+
+
+print('grazing rates:', grazing)
+print('growth rates:', growth)
+print('net rates:', net)
+print('r2 values are:', r2_value)
+
+
+fig1 = graph_values(growth)
+plt.show()
+fig2 = graph_values(grazing)
+plt.show()
+
