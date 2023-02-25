@@ -1,6 +1,6 @@
 import os
 import shutil
-#import FocusStack
+import FocusStack
 
 
 def stackHDRs(image_files, filename, path):
@@ -25,18 +25,7 @@ def get_image_files(root_dir, img_types):
     imgs = [j for j in imgs_temp if any (k in j for k in img_types)]
     return imgs
 
-def concat_imgs(images):
-    imgs = [Image.open(x) for x in img_in_pos_per_ch]
-    widths, heights = zip(*(i.size for i in imgs))
-    total_width = sum(widths)
-    max_height = max(heights)
-    new_im = Image.new('RGB', (total_width, max_height))
-    x_offset = 0
-    for im in imgs:
-        new_im.paste(im, (x_offset, 0))
-        x_offset += im.size[0]
-    return new_im
-root_dir = 'D:\\Taniguchi_lab_images\\epi_slides\\SR2007\\SR2007_exp2_stn2_cast2_LV'
+root_dir =
 img_types = '.tif'
 files = get_image_files(root_dir, img_types)
 channels = ['CH1', 'CH2', 'CH3', 'CH4']
@@ -61,8 +50,6 @@ for x in channels:
         exist = os.path.exists(path)
         if not exist:
             os.makedirs(path)
-        #stack = concat_imgs(img_in_pos_per_ch)
-        #stack.show()
         input = os.path.join(root_dir, 'temp')
         os.makedirs(input)
         for c in img_in_pos_per_ch:
@@ -79,17 +66,3 @@ for x in channels:
 print('Done!')
 print('The following positions could not be stacked:')
 print(error)
-
-
-
-"""
-        for i in image_files:
-            imp = IJ.openImage(i)
-        imp = ImagesToStack.run(arrayOfImages)
-        IJ.run("EDF Easy mode", "")
-        IJ.saveAs(imp, "Tiff", "D:/Taniguchi_lab_images/epi_slides/practice_for_merging/" + position)
-        imp.close()
-        imp.close()
-        imp.close()
-
-"""
