@@ -26,11 +26,7 @@ The logic is roughly the following:
 
 4.  For each pixel [x,y] in the output image, copy the pixel [x,y] from
     the input image which has the largest gradient [x,y]
-    
 
-This algorithm was inspired by the high-level description given at
-
-http://stackoverflow.com/questions/15911783/what-are-some-common-focus-stacking-algorithms
 
 """
 
